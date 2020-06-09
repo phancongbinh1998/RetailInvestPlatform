@@ -217,7 +217,7 @@ class _HomeState extends State<Home> {
                     size: 40.0,
                   ),
                   onTap: () {
-                    Navigator.pop(context);
+                    //Navigator.pop(context);
                   },
                 ),
               ),

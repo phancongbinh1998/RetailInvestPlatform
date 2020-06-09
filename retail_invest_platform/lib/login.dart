@@ -27,45 +27,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-//    return Scaffold(
-//      appBar: AppBar(
-//        title: Text('Login'),
-//      ),
-//      body: Form(
-//        key: formkey,
-//        child: Column(
-//          children: <Widget>[
-//            TextFormField(
-//              validator: (input){
-//                if(input.isEmpty){
-//                  return 'Please type an email';
-//                }
-//              },
-//              onSaved: (input) => email = input,
-//              decoration: InputDecoration(
-//                labelText: 'Email'
-//              ),
-//            ),
-//            TextFormField(
-//              validator: (input){
-//                if(input.isEmpty){
-//                  return 'Please provide a password';
-//                }
-//              },
-//              onSaved: (input) => password = input,
-//              decoration: InputDecoration(
-//                  labelText: 'Password'
-//              ),
-//              obscureText: true,
-//            ),
-//            RaisedButton(
-//              onPressed: signIn,
-//              child: Text('Sign in'),
-//            )
-//          ],
-//        ),
-//      ),
-//    );
     return Scaffold(
       appBar: AppBar(
         title: Text('Login'),
