@@ -158,30 +158,30 @@ class _HomeState extends State<Home> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Expanded(
-              flex: 0,
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                      width: 1.0,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-                width: MediaQuery.of(context).size.width * 1,
-                padding: EdgeInsets.all(20.0),
-                child: Text(
-                  'Information',
-                  style: TextStyle(
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 2.0,
-                    fontFamily: 'Montserrat',
-                  ),
-                ),
-              ),
-            ),
+//            Expanded(
+//              flex: 0,
+//              child: Container(
+//                decoration: BoxDecoration(
+//                  border: Border(
+//                    bottom: BorderSide(
+//                      width: 1.0,
+//                      color: Colors.black,
+//                    ),
+//                  ),
+//                ),
+//                width: MediaQuery.of(context).size.width * 1,
+//                padding: EdgeInsets.all(20.0),
+//                child: Text(
+//                  'Information',
+//                  style: TextStyle(
+//                    fontSize: 20.0,
+//                    fontWeight: FontWeight.bold,
+//                    letterSpacing: 2.0,
+//                    fontFamily: 'Montserrat',
+//                  ),
+//                ),
+//              ),
+//            ),
             Expanded(
               flex: 0,
               child: Container(
