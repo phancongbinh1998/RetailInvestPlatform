@@ -2,6 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Detail extends StatefulWidget {
+  const Detail({
+    Key key,
+    @required this.image,
+  }) : super(key: key);
+  final String image;
   @override
   _DetailState createState() => _DetailState();
 }
@@ -24,7 +29,7 @@ class _DetailState extends State<Detail> {
               height: MediaQuery.of(context).size.height * 0.5,
               decoration: BoxDecoration(
                   image: DecorationImage(
-                image: AssetImage("assets/4.jpg"),
+                image: AssetImage("assets/${widget.image}"),
                 fit: BoxFit.fill,
               )),
               child: Align(
@@ -209,11 +214,13 @@ class _DetailState extends State<Detail> {
               ),
             ),
             Container(
+              width: MediaQuery.of(context).size.width*0.9,
               padding: EdgeInsets.only(bottom: 10.0),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Container(
+                    width: MediaQuery.of(context).size.width*0.5,
                     child: Text(
                       'Offered By',
                       style: TextStyle(
@@ -239,11 +246,13 @@ class _DetailState extends State<Detail> {
               ),
             ),
             Container(
+              width: MediaQuery.of(context).size.width*0.9,
               padding: EdgeInsets.only(bottom: 10.0),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Container(
+                    width: MediaQuery.of(context).size.width*0.5,
                     child: Text(
                       'Type',
                       style: TextStyle(
@@ -269,11 +278,13 @@ class _DetailState extends State<Detail> {
               ),
             ),
             Container(
+              width: MediaQuery.of(context).size.width*0.9,
               padding: EdgeInsets.only(bottom: 10.0),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Container(
+                    width: MediaQuery.of(context).size.width*0.5,
                     child: Text(
                       'Percentage',
                       style: TextStyle(

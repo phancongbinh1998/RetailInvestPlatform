@@ -49,7 +49,7 @@ class _HomeState extends State<Home> {
                   children: <Widget>[
                     GestureDetector(
                       onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => Detail()));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => Detail(image: image)));
                       },
                       child: Container(
                         width: 200.0,
