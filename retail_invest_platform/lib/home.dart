@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import 'detail.dart';
+
 class Home extends StatefulWidget {
   const Home({
     Key key,
@@ -13,14 +15,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-//  @override
-//  Widget build(BuildContext context) {
-//    return Scaffold(
-//      appBar: AppBar(
-//        title: Text('Home ${widget.user.email}'),
-//      ),
-//    );
-//  }
   int _selectedIndex = 0;
   List<String> img = ["1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.png"];
 
@@ -53,30 +47,35 @@ class _HomeState extends State<Home> {
                 alignment: Alignment.topCenter,
                 child: Column(
                   children: <Widget>[
-                    Container(
-                      width: 200.0,
-                      height: 210.0,
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage("assets/" + image),
-                            fit: BoxFit.cover,
-                          )),
-                      child: Align(
-                        alignment: const Alignment(-0.8, 1.0),
-                        child: SizedBox(
-                          width: 60.0,
-                          height: 0,
-                          child: OverflowBox(
-                            minWidth: 0.0,
-                            maxWidth: 60.0,
-                            minHeight: 0.0,
-                            maxHeight: 60.0,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: AssetImage("assets/apple-touch-icon-114x114.png"),
-                                    fit: BoxFit.cover,
-                                  )),
+                    GestureDetector(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => Detail()));
+                      },
+                      child: Container(
+                        width: 200.0,
+                        height: 210.0,
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage("assets/" + image),
+                              fit: BoxFit.cover,
+                            )),
+                        child: Align(
+                          alignment: const Alignment(-0.8, 1.0),
+                          child: SizedBox(
+                            width: 60.0,
+                            height: 0,
+                            child: OverflowBox(
+                              minWidth: 0.0,
+                              maxWidth: 60.0,
+                              minHeight: 0.0,
+                              maxHeight: 60.0,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: AssetImage("assets/apple-touch-icon-114x114.png"),
+                                      fit: BoxFit.cover,
+                                    )),
+                              ),
                             ),
                           ),
                         ),

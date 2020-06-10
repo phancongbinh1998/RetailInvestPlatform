@@ -54,7 +54,6 @@ class _LoginPageState extends State<LoginPage> {
                 child: TextFormField(
                   validator: (input) {
                     if (input.isEmpty) {
-                      print('>>>');
                       return 'Please type an username';
                     }
                   },
