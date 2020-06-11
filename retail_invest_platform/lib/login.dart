@@ -31,208 +31,348 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Login'),
-        centerTitle: true,
-        backgroundColor: const Color.fromRGBO(20, 25, 74, 1),
-      ),
+      backgroundColor: const Color.fromRGBO(20, 25, 74, 1),
+//      appBar: AppBar(
+//        title: Text('Login'),
+//        centerTitle: true,
+//        backgroundColor: const Color.fromRGBO(20, 25, 74, 1),
+//      ),
       body: Form(
         key: formkey,
         child: Column(
           children: <Widget>[
-            Expanded(
-              flex: 1,
-              child: Container(
-                alignment: Alignment.center,
-                child: Image(
-                  image: AssetImage('assets/apple-touch-icon-120x120.png'),
-                ),
-              ),
-            ),
-            Expanded(
-              flex: 0,
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.9,
-                padding: EdgeInsets.only(bottom: 10.0),
-                child: TextFormField(
-                  validator: (input) {
-                    if (input.isEmpty) {
-                      return 'Please type an username';
-                    }
-                  },
-                  onSaved: (input) => email = input,
-                  decoration: InputDecoration(
-                    labelText: 'Username',
-                    hintText: 'Enter your username',
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                      color: const Color.fromRGBO(20, 25, 74, 1),
-                    )),
-                    border: OutlineInputBorder(borderSide: BorderSide()),
-                    labelStyle: TextStyle(
-                        color: myFocusNode.hasFocus
-                            ? const Color.fromRGBO(20, 25, 74, 1)
-                            : Colors.grey),
-                  ),
-                ),
-              ),
-            ),
-            Expanded(
-              flex: 0,
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.9,
-                padding: EdgeInsets.only(bottom: 10.0),
-                child: TextFormField(
-                  validator: (input) {
-                    if (input.isEmpty) {
-                      return 'Please provide a password';
-                    }
-                  },
-                  onSaved: (input) => password = input,
-                  focusNode: myFocusNode,
-                  obscureText: _isHidePassword,
-                  autofocus: false,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    labelText: 'Password',
-                    hintText: 'Enter your password',
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                      color: const Color.fromRGBO(20, 25, 74, 1),
-                    )),
-                    border: OutlineInputBorder(borderSide: BorderSide()),
-                    labelStyle: TextStyle(
-                        color: myFocusNode.hasFocus
-                            ? const Color.fromRGBO(20, 25, 74, 1)
-                            : Colors.grey),
-                    suffixIcon: GestureDetector(
-                      onTap: () {
-                        _togglePasswordVisibility();
-                      },
-                      child: Icon(
-                        _isHidePassword
-                            ? Icons.visibility_off
-                            : Icons.visibility,
-                        color: _isHidePassword
-                            ? Colors.grey
-                            : const Color.fromRGBO(20, 25, 74, 1),
-                      ),
-                    ),
-                    isDense: true,
-                  ),
-                ),
-              ),
-            ),
-            Expanded(
-              flex: 0,
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.9,
-                padding: EdgeInsets.only(bottom: 10.0),
-                height: 60.0,
-                child: RaisedButton(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                  onPressed: signIn,
-                  child: Text(
-                    'Login',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      fontSize: 15.0,
-                      letterSpacing: 2.0,
-                      fontFamily: 'Montserrat',
-                    ),
-                  ),
-                  color: const Color.fromRGBO(20, 25, 74, 1),
-                ),
-              ),
-            ),
-            Expanded(
-              flex: 0,
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.9,
-                padding: EdgeInsets.only(bottom: 20.0),
-                height: 70.0,
-                child: RaisedButton(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                  onPressed: () {
-                    signInWithGoogle().whenComplete(() {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return Home();
-                          },
-                        ),
-                      );
-                    });
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Image(image: AssetImage("assets/google_logo.png"), height: 35.0),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10),
-                          child: Text(
-                            'Sign in with Google+',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.red,
-                              fontSize: 15.0,
-                              letterSpacing: 2.0,
-                              fontFamily: 'Montserrat',
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
 
+            _buildLogo(),
+            _buildUsernameInput(),
+            _buildPasswordInput(),
+            _buildLoginButton(),
+            _buildTextOR(),
+            _buildText(),
+            _buildFacebookAndGoogleLoginButton(),
+            _buildRegisterButton(),
+
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildLogo(){
+    return Expanded(
+      flex: 2,
+      child: Container(
+        alignment: Alignment.center,
+        child: Image(
+          image: AssetImage('assets/apple-touch-icon-120x120.png'),
+        ),
+      ),
+    );
+  }
+  Widget _buildUsernameInput(){
+    return Expanded(
+      flex: 0,
+      child: Container(
+        width: MediaQuery.of(context).size.width * 0.8,
+        padding: EdgeInsets.only(bottom: 20.0),
+        child: TextFormField(
+          style: TextStyle(
+            color: Colors.white,
+          ),
+          validator: (input) {
+            if (input.isEmpty) {
+              return 'Please input an email';
+            }
+          },
+          onSaved: (input) => email = input,
+          decoration: InputDecoration(
+            prefixIcon: Icon(
+              Icons.mail,
+              color: Colors.white,
+            ),
+            labelText: 'Email',
+            hintText: 'Enter your email',
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(30.0),
+              borderSide: BorderSide(
+                color: Colors.white,
+              ),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(30.0),
+              borderSide: BorderSide(
+                color: Colors.white,
+              ),
+            ),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(30.0),
+              borderSide: BorderSide(
+                color: Colors.white,
+              ),
+            ),
+            labelStyle: TextStyle(
+                color:
+                myFocusNode.hasFocus ? Colors.white : Colors.white),
+            hintStyle: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+  Widget _buildPasswordInput(){
+    return Expanded(
+      flex: 0,
+      child: Container(
+        width: MediaQuery.of(context).size.width * 0.8,
+        padding: EdgeInsets.only(bottom: 20.0),
+        child: TextFormField(
+          style: TextStyle(
+            color: Colors.white,
+          ),
+          validator: (input) {
+            if (input.isEmpty) {
+              return 'Please provide a password';
+            }
+          },
+          onSaved: (input) => password = input,
+          focusNode: myFocusNode,
+          obscureText: _isHidePassword,
+          autofocus: false,
+          keyboardType: TextInputType.text,
+          decoration: InputDecoration(
+            prefixIcon: Icon(
+              Icons.lock,
+              color: Colors.white,
+            ),
+            labelText: 'Password',
+            hintText: 'Enter your password',
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(30.0),
+              borderSide: BorderSide(
+                color: Colors.white,
+              ),
+            ),
+            focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(30.0),
+                borderSide: BorderSide(
                   color: Colors.white,
+                )),
+            border: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.white),
+              borderRadius: BorderRadius.circular(30.0),
+            ),
+            labelStyle: TextStyle(
+                color:
+                myFocusNode.hasFocus ? Colors.white : Colors.white),
+            hintStyle: TextStyle(
+              color: Colors.white,
+            ),
+            suffixIcon: GestureDetector(
+              onTap: () {
+                _togglePasswordVisibility();
+              },
+              child: Icon(
+                _isHidePassword
+                    ? Icons.visibility_off
+                    : Icons.visibility,
+                color: _isHidePassword ? Colors.white : Colors.white,
+              ),
+            ),
+            //isDense: true,
+          ),
+        ),
+      ),
+    );
+  }
+  Widget _buildLoginButton(){
+    return Expanded(
+      flex: 0,
+      child: Container(
+        width: MediaQuery.of(context).size.width * 0.8,
+        padding: EdgeInsets.only(bottom: 10.0),
+        height: 60.0,
+        child: RaisedButton(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30.0),
+          ),
+          onPressed: signIn,
+          child: Text(
+            'Login',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: const Color.fromRGBO(20, 25, 74, 1),
+              fontSize: 20.0,
+              letterSpacing: 2.0,
+              fontFamily: 'Montserrat',
+            ),
+          ),
+          color: Colors.white,
+        ),
+      ),
+    );
+  }
+  Widget _buildTextOR(){
+    return Expanded(
+      flex: 0,
+      child: Container(
+        width: MediaQuery.of(context).size.width * 0.9,
+        padding: EdgeInsets.only(bottom: 10.0, top: 20.0),
+        height: 60.0,
+        child: Text(
+          '-OR-',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 15.0,
+            fontFamily: 'Montserrat',
+            color: Colors.white,
+          ),
+          textAlign: TextAlign.center,
+        ),
+      ),
+    );
+  }
+  Widget _buildText(){
+    return Expanded(
+      flex: 0,
+      child: Container(
+        width: MediaQuery.of(context).size.width * 0.9,
+        padding: EdgeInsets.only(bottom: 10.0, top: 10.0),
+        height: 60.0,
+        child: Text(
+          'Sign in with',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 15.0,
+            fontFamily: 'Montserrat',
+            color: Colors.white,
+          ),
+          textAlign: TextAlign.center,
+        ),
+      ),
+    );
+  }
+  Widget _buildFacebookAndGoogleLoginButton(){
+    return Expanded(
+      flex: 0,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          Container(
+            //width: MediaQuery.of(context).size.width * 0.9,
+            padding: EdgeInsets.only(bottom: 20.0),
+            height: 70.0,
+            child: FloatingActionButton(
+//                  shape: RoundedRectangleBorder(
+//                    borderRadius: BorderRadius.circular(25.0),
+//                  ),
+              backgroundColor: Colors.white,
+              onPressed: () {
+                signInWithGoogle().whenComplete(() {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return Home();
+                      },
+                    ),
+                  );
+                });
+              },
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Image(
+                        image: AssetImage("assets/facebook.png"),
+                        height: 35.0),
+                  ],
                 ),
               ),
+//                  color: Colors.white,
             ),
-            Expanded(
-              flex: 1,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Expanded(
-                    flex: 0,
-                    child: Container(
-                      child: Text(
-                        "Don't have account yet?",
-                        style: TextStyle(
-                          fontSize: 15.0,
-                          fontFamily: 'Montserrat',
-                        ),
-                      ),
+          ),
+          Container(
+            //width: MediaQuery.of(context).size.width * 0.9,
+            padding: EdgeInsets.only(bottom: 20.0),
+            height: 70.0,
+            child: FloatingActionButton(
+//                  shape: RoundedRectangleBorder(
+//                    borderRadius: BorderRadius.circular(25.0),
+//                  ),
+              backgroundColor: Colors.white,
+              onPressed: () {
+                signInWithGoogle().whenComplete(() {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return Home();
+                      },
                     ),
-                  ),
-                  Expanded(
-                    flex: 0,
-                    child: Container(
-                      child: Text(
-                        'Register',
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.bold,
-                          color: const Color.fromRGBO(221, 75, 57, 1),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+                  );
+                });
+              },
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Image(
+                        image: AssetImage("assets/google_logo.png"),
+                        height: 35.0),
+//                        Padding(
+//                          padding: const EdgeInsets.only(left: 10),
+//                          child: Text(
+//                            'Sign in with Google+',
+//                            style: TextStyle(
+//                              fontWeight: FontWeight.bold,
+//                              color: Colors.red,
+//                              fontSize: 15.0,
+//                              letterSpacing: 2.0,
+//                              fontFamily: 'Montserrat',
+//                            ),
+//                          ),
+//                        )
+                  ],
+                ),
               ),
+//                  color: Colors.white,
             ),
-          ],
+          ),
+        ],
+      ),
+    );
+  }
+  Widget _buildRegisterButton(){
+    return Expanded(
+      flex: 1,
+      child: GestureDetector(
+        onTap: () {
+          print('Sign Up');
+        },
+        child: RichText(
+          text: TextSpan(
+            children: [
+              TextSpan(
+                text: "Don't have an Account?",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.w300,
+                ),
+              ),
+              TextSpan(
+                text: "Sign Up",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -255,6 +395,4 @@ class _LoginPageState extends State<LoginPage> {
       }
     }
   }
-
-
 }
