@@ -220,7 +220,7 @@ class _DetailState extends State<Detail> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Container(
-                    width: MediaQuery.of(context).size.width*0.5,
+                    width: MediaQuery.of(context).size.width*0.4,
                     child: Text(
                       'Offered By',
                       style: TextStyle(
@@ -252,7 +252,7 @@ class _DetailState extends State<Detail> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Container(
-                    width: MediaQuery.of(context).size.width*0.5,
+                    width: MediaQuery.of(context).size.width*0.4,
                     child: Text(
                       'Type',
                       style: TextStyle(
@@ -284,7 +284,7 @@ class _DetailState extends State<Detail> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Container(
-                    width: MediaQuery.of(context).size.width*0.5,
+                    width: MediaQuery.of(context).size.width*0.4,
                     child: Text(
                       'Percentage',
                       style: TextStyle(
