@@ -262,33 +262,28 @@ class _LoginPageState extends State<LoginPage> {
             //width: MediaQuery.of(context).size.width * 0.9,
             padding: EdgeInsets.only(bottom: 20.0),
             height: 70.0,
-            child: FloatingActionButton(
-//                  shape: RoundedRectangleBorder(
-//                    borderRadius: BorderRadius.circular(25.0),
-//                  ),
-              backgroundColor: Colors.white,
-              onPressed: () {
-                signInWithGoogle().whenComplete(() {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return Home();
-                      },
-                    ),
-                  );
-                });
+            child: GestureDetector(
+              onTap: () {
+
               },
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Image(
-                        image: AssetImage("assets/facebook.png"),
-                        height: 35.0),
+              child: Container(
+                height: 70.0,
+                width: 70.0,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black26,
+                      offset: Offset(0,2),
+                      blurRadius: 6.0,
+                    )
                   ],
+                  image: DecorationImage(
+                    image: AssetImage('assets/facebook.png'),
+                  )
                 ),
+
               ),
 //                  color: Colors.white,
             ),
@@ -297,12 +292,8 @@ class _LoginPageState extends State<LoginPage> {
             //width: MediaQuery.of(context).size.width * 0.9,
             padding: EdgeInsets.only(bottom: 20.0),
             height: 70.0,
-            child: FloatingActionButton(
-//                  shape: RoundedRectangleBorder(
-//                    borderRadius: BorderRadius.circular(25.0),
-//                  ),
-              backgroundColor: Colors.white,
-              onPressed: () {
+            child: GestureDetector(
+              onTap: () {
                 signInWithGoogle().whenComplete(() {
                   Navigator.of(context).push(
                     MaterialPageRoute(
@@ -313,30 +304,24 @@ class _LoginPageState extends State<LoginPage> {
                   );
                 });
               },
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Image(
-                        image: AssetImage("assets/google_logo.png"),
-                        height: 35.0),
-//                        Padding(
-//                          padding: const EdgeInsets.only(left: 10),
-//                          child: Text(
-//                            'Sign in with Google+',
-//                            style: TextStyle(
-//                              fontWeight: FontWeight.bold,
-//                              color: Colors.red,
-//                              fontSize: 15.0,
-//                              letterSpacing: 2.0,
-//                              fontFamily: 'Montserrat',
-//                            ),
-//                          ),
-//                        )
-                  ],
+              child: Container(
+                height: 70.0,
+                width: 70.0,
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black26,
+                        offset: Offset(0,2),
+                        blurRadius: 6.0,
+                      )
+                    ],
+                    image: DecorationImage(
+                      image: AssetImage('assets/google_logo.png'),
+                    )
                 ),
+
               ),
 //                  color: Colors.white,
             ),
