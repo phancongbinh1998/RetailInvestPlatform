@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:retailinvestplatform/sign_in.dart';
 
 import 'home.dart';
 
@@ -23,6 +25,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
+  final GoogleSignIn googleSignIn = GoogleSignIn();
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +110,9 @@ class _LoginPageState extends State<LoginPage> {
                         _togglePasswordVisibility();
                       },
                       child: Icon(
-                        _isHidePassword ? Icons.visibility_off : Icons.visibility,
+                        _isHidePassword
+                            ? Icons.visibility_off
+                            : Icons.visibility,
                         color: _isHidePassword
                             ? Colors.grey
                             : const Color.fromRGBO(20, 25, 74, 1),
@@ -154,19 +159,41 @@ class _LoginPageState extends State<LoginPage> {
                     borderRadius: BorderRadius.circular(5.0),
                   ),
                   onPressed: () {
-                    print('Click');
+                    signInWithGoogle().whenComplete(() {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return Home();
+                          },
+                        ),
+                      );
+                    });
                   },
-                  child: Text(
-                    'Sign in with Google+',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      fontSize: 15.0,
-                      letterSpacing: 2.0,
-                      fontFamily: 'Montserrat',
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Image(image: AssetImage("assets/google_logo.png"), height: 35.0),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10),
+                          child: Text(
+                            'Sign in with Google+',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.red,
+                              fontSize: 15.0,
+                              letterSpacing: 2.0,
+                              fontFamily: 'Montserrat',
+                            ),
+                          ),
+                        )
+                      ],
                     ),
                   ),
-                  color: const Color.fromRGBO(221, 75, 57, 1),
+
+                  color: Colors.white,
                 ),
               ),
             ),
@@ -222,10 +249,12 @@ class _LoginPageState extends State<LoginPage> {
                     email: email.trim(), password: password))
             .user;
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Home(user: user)));
+            context, MaterialPageRoute(builder: (context) => Home()));
       } catch (e) {
         print(e.message);
       }
     }
   }
+
+
 }

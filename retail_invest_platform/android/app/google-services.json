@@ -1,34 +1,42 @@
 {
   "project_info": {
-    "project_number": "648996781852",
-    "firebase_url": "https://retailinvestplatform.firebaseio.com",
-    "project_id": "retailinvestplatform",
-    "storage_bucket": "retailinvestplatform.appspot.com"
+    "project_number": "56689293479",
+    "firebase_url": "https://retailinvest-a2d5e.firebaseio.com",
+    "project_id": "retailinvest-a2d5e",
+    "storage_bucket": "retailinvest-a2d5e.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:648996781852:android:db26d790d27c1f8e2184d9",
+        "mobilesdk_app_id": "1:56689293479:android:9992ddc2524be1eee18382",
         "android_client_info": {
           "package_name": "com.example.retailinvestplatform"
         }
       },
       "oauth_client": [
         {
-          "client_id": "648996781852-3l8im7vcs65luppj0uma9qimdiulktcq.apps.googleusercontent.com",
+          "client_id": "56689293479-7iu8u0upkhn1se3jvk4925hbh5qlcaeg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.retailinvestplatform",
+            "certificate_hash": "92a7d5d675ae79b15b875642e69b67d1fad72099"
+          }
+        },
+        {
+          "client_id": "56689293479-4qfe5mfma4on7qi5gm2gn7hteji8jrp0.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyATFtbtBDckgWllbAgFIolzehdSHqxnARI"
+          "current_key": "AIzaSyDXx6JMtTnHWule6OXAKnvugSheK7O6_EU"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "648996781852-3l8im7vcs65luppj0uma9qimdiulktcq.apps.googleusercontent.com",
+              "client_id": "56689293479-4qfe5mfma4on7qi5gm2gn7hteji8jrp0.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

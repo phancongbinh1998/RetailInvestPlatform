@@ -1,15 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:retailinvestplatform/sign_in.dart';
 
 import 'detail.dart';
+import 'login.dart';
 
 class Home extends StatefulWidget {
-  const Home({
-    Key key,
-    @required this.user,
-  }) : super(key: key);
-  final FirebaseUser user;
-
   @override
   _HomeState createState() => _HomeState();
 }
@@ -89,7 +84,7 @@ class _HomeState extends State<Home> {
                             width: 90.0,
                             height: 56.0,
                             child: Text(
-                              "Trigonic",
+                              "Army Stew",
                               style: TextStyle(
                                 fontSize: 15.0,
                                 fontFamily: 'Montserrat',
@@ -158,30 +153,6 @@ class _HomeState extends State<Home> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-//            Expanded(
-//              flex: 0,
-//              child: Container(
-//                decoration: BoxDecoration(
-//                  border: Border(
-//                    bottom: BorderSide(
-//                      width: 1.0,
-//                      color: Colors.black,
-//                    ),
-//                  ),
-//                ),
-//                width: MediaQuery.of(context).size.width * 1,
-//                padding: EdgeInsets.all(20.0),
-//                child: Text(
-//                  'Information',
-//                  style: TextStyle(
-//                    fontSize: 20.0,
-//                    fontWeight: FontWeight.bold,
-//                    letterSpacing: 2.0,
-//                    fontFamily: 'Montserrat',
-//                  ),
-//                ),
-//              ),
-//            ),
             Expanded(
               flex: 0,
               child: Container(
@@ -194,22 +165,27 @@ class _HomeState extends State<Home> {
                   ),
                 ),
                 child: ListTile(
-                  leading: Icon(
-                    Icons.person_pin,
-                    color: Colors.black,
-                    size: 40.0,
+                  leading: CircleAvatar(
+                    backgroundImage: NetworkImage(
+                      imageUrl,
+                    ),
+                    radius: 30,
+                    backgroundColor: Colors.transparent,
                   ),
                   title: Text(
-                    'Welcome ${widget.user.email}',
-                    style: TextStyle(fontFamily: 'Montserrat', fontSize: 20.0),
+                    name,
+                    style: TextStyle(
+                        fontFamily: 'Montserrat',
+                        fontSize: 20.0,
+                    ),
                   ),
-//                  subtitle: Text(
-//                    'Login/Register',
-//                    style: TextStyle(
-//                      fontFamily: 'Montserrat',
-//                      fontSize: 15.0,
-//                    ),
-//                  ),
+                  subtitle: Text(
+                    email,
+                    style: TextStyle(
+                      fontFamily: 'Montserrat',
+                      fontSize: 15.0,
+                    ),
+                  ),
                   trailing: Icon(
                     Icons.keyboard_arrow_right,
                     color: Colors.black,
@@ -355,7 +331,8 @@ class _HomeState extends State<Home> {
                 width: MediaQuery.of(context).size.width * 1,
                 child: RaisedButton(
                   onPressed: () {
-                    Navigator.pop(context);
+                    signOutGoogle();
+                    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) {return LoginPage();}), ModalRoute.withName('/'));
                   },
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5.0),
