@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:retailinvestplatform/sign_in.dart';
+import 'package:retailinvestplatform/utils/sign_in.dart';
 
 import 'detail.dart';
 import 'login.dart';

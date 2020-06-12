@@ -3,7 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:retailinvestplatform/sign_in.dart';
+import 'file:///F:/RetailInvestPlatform/retail_invest_platform/lib/utils/bloc.dart';
+import 'package:retailinvestplatform/utils/sign_in.dart';
 
 import 'home.dart';
 
@@ -26,9 +27,10 @@ class _LoginPageState extends State<LoginPage> {
 
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
   final GoogleSignIn googleSignIn = GoogleSignIn();
-
+  final bloc = Bloc();
   @override
   Widget build(BuildContext context) {
+
     // TODO: implement build
     return Scaffold(
       backgroundColor: const Color.fromRGBO(20, 25, 74, 1),
@@ -74,46 +76,51 @@ class _LoginPageState extends State<LoginPage> {
       child: Container(
         width: MediaQuery.of(context).size.width * 0.8,
         padding: EdgeInsets.only(bottom: 20.0),
-        child: TextFormField(
-          style: TextStyle(
-            color: Colors.white,
-          ),
-          validator: (input) {
-            if (input.isEmpty) {
-              return 'Please input an email';
-            }
-          },
-          onSaved: (input) => email = input,
-          decoration: InputDecoration(
-            prefixIcon: Icon(
-              Icons.mail,
+        child: StreamBuilder<String>(
+          stream: bloc.email,
+          builder: (context, snapshot) => TextFormField(
+            onChanged: bloc.emailChanged,
+            style: TextStyle(
               color: Colors.white,
             ),
-            labelText: 'Email',
-            hintText: 'Enter your email',
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(30.0),
-              borderSide: BorderSide(
+            validator: (input) {
+              if (input.isEmpty) {
+                return 'Please input an email';
+              }
+            },
+            onSaved: (input) => email = input,
+            decoration: InputDecoration(
+              prefixIcon: Icon(
+                Icons.mail,
                 color: Colors.white,
               ),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(30.0),
-              borderSide: BorderSide(
+              labelText: 'Email',
+              hintText: 'Enter your email',
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(30.0),
+                borderSide: BorderSide(
+                  color: Colors.white,
+                ),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(30.0),
+                borderSide: BorderSide(
+                  color: Colors.white,
+                ),
+              ),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(30.0),
+                borderSide: BorderSide(
+                  color: Colors.white,
+                ),
+              ),
+              labelStyle: TextStyle(
+                  color:
+                  myFocusNode.hasFocus ? Colors.white : Colors.white),
+              hintStyle: TextStyle(
                 color: Colors.white,
               ),
-            ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(30.0),
-              borderSide: BorderSide(
-                color: Colors.white,
-              ),
-            ),
-            labelStyle: TextStyle(
-                color:
-                myFocusNode.hasFocus ? Colors.white : Colors.white),
-            hintStyle: TextStyle(
-              color: Colors.white,
+              errorText: snapshot.error,
             ),
           ),
         ),
@@ -126,60 +133,65 @@ class _LoginPageState extends State<LoginPage> {
       child: Container(
         width: MediaQuery.of(context).size.width * 0.8,
         padding: EdgeInsets.only(bottom: 20.0),
-        child: TextFormField(
-          style: TextStyle(
-            color: Colors.white,
-          ),
-          validator: (input) {
-            if (input.isEmpty) {
-              return 'Please provide a password';
-            }
-          },
-          onSaved: (input) => password = input,
-          focusNode: myFocusNode,
-          obscureText: _isHidePassword,
-          autofocus: false,
-          keyboardType: TextInputType.text,
-          decoration: InputDecoration(
-            prefixIcon: Icon(
-              Icons.lock,
+        child: StreamBuilder<String>(
+          stream: bloc.password,
+          builder: (context, snapshot) => TextFormField(
+            onChanged: bloc.passwordChanged,
+            style: TextStyle(
               color: Colors.white,
             ),
-            labelText: 'Password',
-            hintText: 'Enter your password',
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(30.0),
-              borderSide: BorderSide(
+            validator: (input) {
+              if (input.isEmpty) {
+                return 'Please provide a password';
+              }
+            },
+            onSaved: (input) => password = input,
+            focusNode: myFocusNode,
+            obscureText: _isHidePassword,
+            autofocus: false,
+            keyboardType: TextInputType.text,
+            decoration: InputDecoration(
+              prefixIcon: Icon(
+                Icons.lock,
                 color: Colors.white,
               ),
-            ),
-            focusedBorder: OutlineInputBorder(
+              labelText: 'Password',
+              hintText: 'Enter your password',
+              enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(30.0),
                 borderSide: BorderSide(
                   color: Colors.white,
-                )),
-            border: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.white),
-              borderRadius: BorderRadius.circular(30.0),
-            ),
-            labelStyle: TextStyle(
-                color:
-                myFocusNode.hasFocus ? Colors.white : Colors.white),
-            hintStyle: TextStyle(
-              color: Colors.white,
-            ),
-            suffixIcon: GestureDetector(
-              onTap: () {
-                _togglePasswordVisibility();
-              },
-              child: Icon(
-                _isHidePassword
-                    ? Icons.visibility_off
-                    : Icons.visibility,
-                color: _isHidePassword ? Colors.white : Colors.white,
+                ),
               ),
+              focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30.0),
+                  borderSide: BorderSide(
+                    color: Colors.white,
+                  )),
+              border: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.white),
+                borderRadius: BorderRadius.circular(30.0),
+              ),
+              labelStyle: TextStyle(
+                  color:
+                  myFocusNode.hasFocus ? Colors.white : Colors.white),
+              hintStyle: TextStyle(
+                color: Colors.white,
+              ),
+              errorText: snapshot.error,
+              suffixIcon: GestureDetector(
+                onTap: () {
+                  _togglePasswordVisibility();
+                },
+                child: Icon(
+                  _isHidePassword
+                      ? Icons.visibility_off
+                      : Icons.visibility,
+                  color: _isHidePassword ? Colors.white : Colors.white,
+                ),
+              ),
+              //isDense: true,
             ),
-            //isDense: true,
           ),
         ),
       ),
@@ -192,22 +204,26 @@ class _LoginPageState extends State<LoginPage> {
         width: MediaQuery.of(context).size.width * 0.8,
         padding: EdgeInsets.only(bottom: 10.0),
         height: 60.0,
-        child: RaisedButton(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30.0),
-          ),
-          onPressed: signIn,
-          child: Text(
-            'Login',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: const Color.fromRGBO(20, 25, 74, 1),
-              fontSize: 20.0,
-              letterSpacing: 2.0,
-              fontFamily: 'Montserrat',
+        child: StreamBuilder<bool>(
+          stream: bloc.submitCheck,
+          builder: (context, snapshot) => RaisedButton(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30.0),
             ),
+            onPressed: snapshot.hasData
+                ? () => changeThePage() : null,
+            child: Text(
+              'Login',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: const Color.fromRGBO(20, 25, 74, 1),
+                fontSize: 20.0,
+                letterSpacing: 2.0,
+                fontFamily: 'Montserrat',
+              ),
+            ),
+            color: Colors.white,
           ),
-          color: Colors.white,
         ),
       ),
     );
@@ -363,6 +379,10 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  changeThePage(){
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => Home()));
+  }
   Future<void> signIn() async {
     final formState = formkey.currentState;
 
