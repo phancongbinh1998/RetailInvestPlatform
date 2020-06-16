@@ -44,6 +44,8 @@ Future<String> signInWithGoogle() async {
 
 void signOutGoogle() async {
   await googleSignIn.signOut();
-
+  name = '';
+  email = '';
+  imageUrl = '';
   print("User Sign Out");
 }

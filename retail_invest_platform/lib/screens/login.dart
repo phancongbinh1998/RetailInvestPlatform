@@ -3,7 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'file:///F:/RetailInvestPlatform/retail_invest_platform/lib/utils/bloc.dart';
+import 'package:retailinvestplatform/api/project_api_service.dart';
+import 'package:retailinvestplatform/api/term_types_api_service.dart';
+import 'package:retailinvestplatform/api/user_api_service.dart';
+import 'package:retailinvestplatform/models/login_model.dart';
+import 'package:retailinvestplatform/models/project_model.dart';
 import 'package:retailinvestplatform/utils/sign_in.dart';
 
 import 'home.dart';
@@ -24,10 +28,11 @@ class _LoginPageState extends State<LoginPage> {
       _isHidePassword = !_isHidePassword;
     });
   }
-
+  TextEditingController usernameController = new TextEditingController();
+  TextEditingController passwordlController = new TextEditingController();
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
   final GoogleSignIn googleSignIn = GoogleSignIn();
-  final bloc = Bloc();
+  //final bloc = Bloc();
   @override
   Widget build(BuildContext context) {
 
@@ -77,17 +82,18 @@ class _LoginPageState extends State<LoginPage> {
         width: MediaQuery.of(context).size.width * 0.8,
         padding: EdgeInsets.only(bottom: 20.0),
         child: StreamBuilder<String>(
-          stream: bloc.email,
+          //stream: bloc.email,
           builder: (context, snapshot) => TextFormField(
-            onChanged: bloc.emailChanged,
+            //onChanged: bloc.emailChanged,
             style: TextStyle(
               color: Colors.white,
             ),
-            validator: (input) {
-              if (input.isEmpty) {
+            validator: (usernameController) {
+              if (usernameController.isEmpty) {
                 return 'Please input an email';
               }
             },
+            controller: usernameController,
             onSaved: (input) => email = input,
             decoration: InputDecoration(
               prefixIcon: Icon(
@@ -134,9 +140,9 @@ class _LoginPageState extends State<LoginPage> {
         width: MediaQuery.of(context).size.width * 0.8,
         padding: EdgeInsets.only(bottom: 20.0),
         child: StreamBuilder<String>(
-          stream: bloc.password,
+          //stream: bloc.password,
           builder: (context, snapshot) => TextFormField(
-            onChanged: bloc.passwordChanged,
+            //onChanged: bloc.passwordChanged,
             style: TextStyle(
               color: Colors.white,
             ),
@@ -145,6 +151,8 @@ class _LoginPageState extends State<LoginPage> {
                 return 'Please provide a password';
               }
             },
+            controller: passwordlController,
+
             onSaved: (input) => password = input,
             focusNode: myFocusNode,
             obscureText: _isHidePassword,
@@ -205,13 +213,12 @@ class _LoginPageState extends State<LoginPage> {
         padding: EdgeInsets.only(bottom: 10.0),
         height: 60.0,
         child: StreamBuilder<bool>(
-          stream: bloc.submitCheck,
+          //stream: bloc.submitCheck,
           builder: (context, snapshot) => RaisedButton(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30.0),
             ),
-            onPressed: snapshot.hasData
-                ? () => changeThePage() : null,
+            onPressed: changeThePage,
             child: Text(
               'Login',
               style: TextStyle(
@@ -379,9 +386,17 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  changeThePage(){
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => Home()));
+
+  changeThePage() async {
+//    final myService = ProjectApiService.create();
+//    final response = await myService.getResource();
+//    var post = response.body;
+//    print(' ${post.toString()}');
+
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => Home(inputString: usernameController.text)));
+
+
   }
   Future<void> signIn() async {
     final formState = formkey.currentState;
@@ -400,4 +415,5 @@ class _LoginPageState extends State<LoginPage> {
       }
     }
   }
+
 }

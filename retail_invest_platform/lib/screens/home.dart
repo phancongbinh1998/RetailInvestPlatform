@@ -1,19 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:retailinvestplatform/api/user_api_service.dart';
 import 'package:retailinvestplatform/utils/sign_in.dart';
 
 import 'detail.dart';
 import 'login.dart';
 
 class Home extends StatefulWidget {
+  final String inputString;
+
+  Home({Key key, @required this.inputString}) : super(key: key);
+
   @override
-  _HomeState createState() => _HomeState();
+  _HomeState createState() => _HomeState(inputString);
 }
 
 class _HomeState extends State<Home> {
+  String inputString;
+  _HomeState(this.inputString);
   int _selectedIndex = 0;
   List<String> img = ["1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.png"];
+  String username = '';
+  String emailUser = '';
+  String image =
+      'http://image10.bizrate-images.com/resize?sq=60&uid=2216744464';
 
-  void _onItemTapped(int index) {
+  Future<void> _onItemTapped(int index) async {
+    print(inputString);
+    final myService = UserApiService.create();
+    final response = await myService.getResource(inputString);
+    var post = response.body;
+    username = '${post.Username}';
+    emailUser = '${post.Email}';
+//    print("username: ${post.Username}");
     setState(() {
       _selectedIndex = index;
     });
@@ -37,23 +55,25 @@ class _HomeState extends State<Home> {
                   border: Border.all(
                     color: Colors.grey,
                   ),
-
                 ),
                 alignment: Alignment.topCenter,
                 child: Column(
                   children: <Widget>[
                     GestureDetector(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => Detail(image: image)));
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Detail(image: image)));
                       },
                       child: Container(
                         width: 200.0,
                         height: 210.0,
                         decoration: BoxDecoration(
                             image: DecorationImage(
-                              image: AssetImage("assets/" + image),
-                              fit: BoxFit.cover,
-                            )),
+                          image: AssetImage("assets/" + image),
+                          fit: BoxFit.cover,
+                        )),
                         child: Align(
                           alignment: const Alignment(-0.8, 1.0),
                           child: SizedBox(
@@ -67,9 +87,10 @@ class _HomeState extends State<Home> {
                               child: Container(
                                 decoration: BoxDecoration(
                                     image: DecorationImage(
-                                      image: AssetImage("assets/apple-touch-icon-114x114.png"),
-                                      fit: BoxFit.cover,
-                                    )),
+                                  image: AssetImage(
+                                      "assets/apple-touch-icon-114x114.png"),
+                                  fit: BoxFit.cover,
+                                )),
                               ),
                             ),
                           ),
@@ -167,20 +188,22 @@ class _HomeState extends State<Home> {
                 child: ListTile(
                   leading: CircleAvatar(
                     backgroundImage: NetworkImage(
-                      imageUrl,
+                      imageUrl == ''
+                          ? image
+                          : imageUrl != '' ? imageUrl : imageUrl,
                     ),
                     radius: 30,
                     backgroundColor: Colors.transparent,
                   ),
                   title: Text(
-                    name,
+                    name == '' ? username : name != '' ? name : name,
                     style: TextStyle(
-                        fontFamily: 'Montserrat',
-                        fontSize: 20.0,
+                      fontFamily: 'Montserrat',
+                      fontSize: 20.0,
                     ),
                   ),
                   subtitle: Text(
-                    email,
+                    email == '' ? emailUser : email != '' ? email : email,
                     style: TextStyle(
                       fontFamily: 'Montserrat',
                       fontSize: 15.0,
@@ -332,7 +355,10 @@ class _HomeState extends State<Home> {
                 child: RaisedButton(
                   onPressed: () {
                     signOutGoogle();
-                    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) {return LoginPage();}), ModalRoute.withName('/'));
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(builder: (context) {
+                      return LoginPage();
+                    }), ModalRoute.withName('/'));
                   },
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5.0),
