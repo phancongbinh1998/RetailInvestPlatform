@@ -91,18 +91,18 @@ class _LoginPageState extends State<LoginPage> {
             ),
             validator: (usernameController) {
               if (usernameController.isEmpty) {
-                return 'Please input an email';
+                return 'Please input an username';
               }
             },
             controller: usernameController,
             onSaved: (input) => email = input,
             decoration: InputDecoration(
               prefixIcon: Icon(
-                Icons.mail,
+                Icons.person_pin,
                 color: Colors.white,
               ),
-              labelText: 'Email',
-              hintText: 'Enter your email',
+              labelText: 'Username',
+              hintText: 'Enter your username',
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(30.0),
                 borderSide: BorderSide(
@@ -394,7 +394,7 @@ class _LoginPageState extends State<LoginPage> {
 //    final response = await myService.getResource();
 //    var post = response.body;
 //    print(' ${post.toString()}');
-
+      print('username:' + usernameController.text);
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => Home(inputString: usernameController.text)));
 
