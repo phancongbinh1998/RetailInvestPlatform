@@ -26,11 +26,14 @@ class _HomeState extends State<Home> {
 
   Future<void> _onItemTapped(int index) async {
     print(inputString);
-    final myService = UserApiService.create();
-    final response = await myService.getResource(inputString);
-    var post = response.body;
-    username = '${post.Username}';
-    emailUser = '${post.Email}';
+    if(inputString != null){
+      final myService = UserApiService.create();
+      final response = await myService.getResource(inputString);
+      var post = response.body;
+      username = '${post.Username}';
+      emailUser = '${post.Email}';
+    }
+
 //    print("username: ${post.Username}");
     setState(() {
       _selectedIndex = index;
