@@ -16,6 +16,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   String inputString;
+  String apiKey = 'Hhas88SADJSADHJ9asdbHSAHD98sadhsdhs9A82888F';
   _HomeState(this.inputString);
   int _selectedIndex = 0;
   List<String> img = ["1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.png"];
@@ -28,7 +29,7 @@ class _HomeState extends State<Home> {
     print(inputString);
     if(inputString != null){
       final myService = UserApiService.create();
-      final response = await myService.getResource(inputString);
+      final response = await myService.getResource(apiKey,inputString);
       var post = response.body;
       username = '${post.Username}';
       emailUser = '${post.Email}';

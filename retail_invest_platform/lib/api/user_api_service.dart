@@ -17,11 +17,11 @@ abstract class UserApiService extends ChopperService{
     );
     return _$UserApiService(client);
   }
-  @Get(path: "getInfo/?username={id}")
-  Future<Response<LoginModel>> getResource(@Path() String id);
+  @Get(path: "getInfo?apiKey={apiKey}&username={id}")
+  Future<Response<LoginModel>> getResource(@Path() String apiKey, String id);
 
-  @Get(path: "login/?loginUser.userName={username}&loginUser.password={password}")
-  Future<Response<String>> checkLogin(@Path() String username, String password);
+  @Get(path: "login/?username={username}&password={password}")
+  Future<Response<bool>> checkLogin(@Path() String username, String password);
 }
 
 

@@ -30,7 +30,7 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
   TextEditingController usernameController = new TextEditingController();
-  TextEditingController passwordlController = new TextEditingController();
+  TextEditingController passwordController = new TextEditingController();
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
   final GoogleSignIn googleSignIn = GoogleSignIn();
   //final bloc = Bloc();
@@ -152,7 +152,7 @@ class _LoginPageState extends State<LoginPage> {
                 return 'Please provide a password';
               }
             },
-            controller: passwordlController,
+            controller: passwordController,
 
             onSaved: (input) => password = input,
             focusNode: myFocusNode,

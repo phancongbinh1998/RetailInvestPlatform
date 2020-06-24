@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:retailinvestplatform/screens/invest.dart';
 
 class Detail extends StatefulWidget {
   const Detail({
@@ -169,7 +170,8 @@ class _DetailState extends State<Detail> {
                       borderRadius: BorderRadius.circular(15.0),
                     ),
                     onPressed: () {
-                      print('Click');
+                      Navigator.push(
+                          context, MaterialPageRoute(builder: (context) => InvestPage()));
                     },
                     child: Text(
                       'Invest',
