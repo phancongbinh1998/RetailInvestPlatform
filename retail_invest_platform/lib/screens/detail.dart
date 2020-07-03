@@ -43,13 +43,13 @@ class _DetailState extends State<Detail> {
                     maxWidth: 70.0,
                     minHeight: 0.0,
                     maxHeight: 70.0,
-                    child: Container(
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                        image: AssetImage("assets/apple-touch-icon-114x114.png"),
-                        fit: BoxFit.cover,
-                      )),
-                    ),
+//                    child: Container(
+//                      decoration: BoxDecoration(
+//                          image: DecorationImage(
+//                        image: AssetImage("assets/apple-touch-icon-114x114.png"),
+//                        fit: BoxFit.cover,
+//                      )),
+//                    ),
                   ),
                 ),
               ),

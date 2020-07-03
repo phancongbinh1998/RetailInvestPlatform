@@ -88,14 +88,14 @@ class _HomeState extends State<Home> {
                               maxWidth: 60.0,
                               minHeight: 0.0,
                               maxHeight: 60.0,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                  image: AssetImage(
-                                      "assets/apple-touch-icon-114x114.png"),
-                                  fit: BoxFit.cover,
-                                )),
-                              ),
+//                              child: Container(
+//                                decoration: BoxDecoration(
+//                                    image: DecorationImage(
+//                                  image: AssetImage(
+//                                      "assets/apple-touch-icon-114x114.png"),
+//                                  fit: BoxFit.cover,
+//                                )),
+//                              ),
                             ),
                           ),
                         ),
