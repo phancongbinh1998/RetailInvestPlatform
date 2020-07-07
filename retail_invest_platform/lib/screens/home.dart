@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:retailinvestplatform/api/user_api_service.dart';
+import 'package:retailinvestplatform/screens/history.dart';
+import 'package:retailinvestplatform/screens/profile.dart';
 import 'package:retailinvestplatform/utils/sign_in.dart';
 
 import 'detail.dart';
@@ -27,6 +29,7 @@ class _HomeState extends State<Home> {
 
   Future<void> _onItemTapped(int index) async {
     print(inputString);
+    print(name);
     if(inputString != null){
       final myService = UserApiService.create();
       final response = await myService.getResource(apiKey,inputString);
@@ -219,7 +222,8 @@ class _HomeState extends State<Home> {
                     size: 40.0,
                   ),
                   onTap: () {
-                    //Navigator.pop(context);
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (context) => ProfilePage()));
                   },
                 ),
               ),
@@ -287,7 +291,10 @@ class _HomeState extends State<Home> {
                     Icons.keyboard_arrow_right,
                     color: Colors.black,
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (context) => HistoryPage()));
+                  },
                 ),
               ),
             ),
@@ -302,23 +309,23 @@ class _HomeState extends State<Home> {
                     ),
                   ),
                 ),
-                child: ListTile(
-                  leading: Icon(
-                    Icons.account_box,
-                    color: Colors.black,
-                  ),
-                  title: Text(
-                    'Account Settings',
-                    style: TextStyle(
-                      fontFamily: 'Montserrat',
-                    ),
-                  ),
-                  trailing: Icon(
-                    Icons.keyboard_arrow_right,
-                    color: Colors.black,
-                  ),
-                  onTap: () {},
-                ),
+//                child: ListTile(
+//                  leading: Icon(
+//                    Icons.account_box,
+//                    color: Colors.black,
+//                  ),
+//                  title: Text(
+//                    'Account Settings',
+//                    style: TextStyle(
+//                      fontFamily: 'Montserrat',
+//                    ),
+//                  ),
+//                  trailing: Icon(
+//                    Icons.keyboard_arrow_right,
+//                    color: Colors.black,
+//                  ),
+//                  onTap: () {},
+//                ),
               ),
             ),
             Expanded(
@@ -348,36 +355,6 @@ class _HomeState extends State<Home> {
                     color: Colors.black,
                   ),
                   onTap: () {},
-                ),
-              ),
-            ),
-            Expanded(
-              flex: 0,
-              child: Container(
-                color: const Color.fromRGBO(239, 239, 239, 1),
-                width: MediaQuery.of(context).size.width * 1,
-                child: RaisedButton(
-                  onPressed: () {
-                    signOutGoogle();
-                    Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(builder: (context) {
-                      return LoginPage();
-                    }), ModalRoute.withName('/'));
-                  },
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                  child: Text(
-                    'LogOut',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      fontSize: 15.0,
-                      letterSpacing: 2.0,
-                      fontFamily: 'Montserrat',
-                    ),
-                  ),
-                  color: const Color.fromRGBO(20, 25, 74, 1),
                 ),
               ),
             ),

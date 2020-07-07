@@ -7,168 +7,162 @@ class InvestPage extends StatefulWidget {
   _InvestPage createState() => _InvestPage();
 }
 
+
 class _InvestPage extends State<InvestPage>{
+  int _selectedIndex = 0;
+  Future<void> _onItemTapped(int index) async {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Colors.white,
-        body: Container(
-          child: Stack(
-            children: <Widget>[
-              Container(
-                height: 300,
-                decoration: BoxDecoration(
-                    color: const Color.fromRGBO(20, 25, 74, 1),
-                    borderRadius: BorderRadius.only(bottomRight: Radius.circular(60),bottomLeft: Radius.circular(60),)
-                ),
+    List<Widget> _widgetOptions = <Widget>[
+      Card(
+        child: Stack(
+          children: <Widget>[
+            Container(
+              height: 300,
+              decoration: BoxDecoration(
+                  color: const Color.fromRGBO(20, 25, 74, 1),
+                  borderRadius: BorderRadius.only(bottomRight: Radius.circular(60),bottomLeft: Radius.circular(60),)
               ),
-              SafeArea(
-                child: ListView(
-                  children: <Widget>[
+            ),
+            SafeArea(
+              child: ListView(
+                children: <Widget>[
 
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: RichText(text: TextSpan(
-                              children: [
-                                TextSpan(text: "\nTotal Balance\n", style: TextStyle(color: Colors.white.withOpacity(0.5), fontSize: 18)),
-                                TextSpan(text: "\$ ", style: TextStyle(color: Colors.white.withOpacity(0.5), fontSize: 30)),
-                                TextSpan(text: "1,234.00 \n", style: TextStyle(color: Colors.white, fontSize: 36)),
-                                TextSpan(text: " \nYour cards", style: TextStyle(color: Colors.white.withOpacity(0.5), fontSize: 18)),
-                              ]
-                          )),
-                        ),
-                        IconButton(icon: Icon(Icons.more_vert, color: Colors.white,size: 40,), onPressed: (){})
-                      ],
-                    ),
-
-                    SizedBox(height: 5,),
-                    Container(
-                      height: 200,
-                      child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: <Widget>[
-                          CreditCard(color: "2a1214", number: 9290, image: "master.png", valid: "VALID 10/22",),
-                          CreditCard(color: "000068", number: 1298, image: "visa.png", valid: "VALID 07/24",),
-                        ],
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: RichText(text: TextSpan(
+                            children: [
+                              TextSpan(text: "\nTotal Balance\n", style: TextStyle(color: Colors.white.withOpacity(0.5), fontSize: 18)),
+                              TextSpan(text: "\$ ", style: TextStyle(color: Colors.white.withOpacity(0.5), fontSize: 30)),
+                              TextSpan(text: "1,234.00 \n", style: TextStyle(color: Colors.white, fontSize: 36)),
+                              TextSpan(text: " \nYour cards", style: TextStyle(color: Colors.white.withOpacity(0.5), fontSize: 18)),
+                            ]
+                        )),
                       ),
-                    ),
-                    SizedBox(height: 5,),
-                    Row(
+                      IconButton(icon: Icon(Icons.more_vert, color: Colors.white,size: 40,), onPressed: (){})
+                    ],
+                  ),
+
+                  SizedBox(height: 5,),
+                  Container(
+                    height: 200,
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
                       children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text("Send money"),
-                        ),
+                        CreditCard(color: "2a1214", number: 9290, image: "master.png", valid: "VALID 10/22",),
+                        CreditCard(color: "000068", number: 1298, image: "visa.png", valid: "VALID 07/24",),
                       ],
                     ),
-
-                    Container(
-                      height: 50,
-                      child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(2.0),
-                            child: CircleAvatar(child: Icon(Icons.add), radius: 25,),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(2.0),
-                            child: CircleAvatar(backgroundImage: AssetImage("assets/p2.jpg"),),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(2.0),
-                            child: CircleAvatar(backgroundImage: AssetImage("assets/p3.jpg"),),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(2.0),
-                            child: CircleAvatar(backgroundImage: AssetImage("assets/p1.jpg"),),
-                          ),
-                        ],
+                  ),
+                  SizedBox(height: 5,),
+                  Row(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text("Send money"),
                       ),
-                    ),
+                    ],
+                  ),
 
-                    Row(
+                  Container(
+                    height: 50,
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
                       children: <Widget>[
                         Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text("Recent transactions"),
+                          padding: const EdgeInsets.all(2.0),
+                          child: CircleAvatar(child: Icon(Icons.add), radius: 25,),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(2.0),
+                          child: CircleAvatar(backgroundImage: AssetImage("assets/p2.jpg"),),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(2.0),
+                          child: CircleAvatar(backgroundImage: AssetImage("assets/p3.jpg"),),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(2.0),
+                          child: CircleAvatar(backgroundImage: AssetImage("assets/p1.jpg"),),
                         ),
                       ],
                     ),
+                  ),
 
-                    ListTile(
-                      onTap: (){
-                        _settingModalBottomSheet(context);
-                      },
-                      leading: CircleAvatar(backgroundImage: AssetImage("assets/p3.jpg"),),
-                      title: RichText(text: TextSpan(children: [
-                        TextSpan(text: 'Marley Geremy\n'),
-                        TextSpan(text: 'Money Sent - Today 9AM', style: TextStyle(fontSize: 14, color: Colors.grey))
-                      ], style: TextStyle(color: Colors.black, fontSize: 18))),
-                      trailing: Text("- \$430", style: TextStyle(fontSize: 20),),
-                    ),
+                  Row(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text("Recent transactions"),
+                      ),
+                    ],
+                  ),
 
-                    ListTile(
-                      onTap: (){
-                        _settingModalBottomSheet(context);
-                      },
-                      leading: CircleAvatar(backgroundImage: AssetImage("assets/p2.jpg"),),
-                      title: RichText(text: TextSpan(children: [
-                        TextSpan(text: 'Jason Martin\n'),
-                        TextSpan(text: 'Money received - Today 12PM', style: TextStyle(fontSize: 14, color: Colors.grey))
-                      ], style: TextStyle(color: Colors.black, fontSize: 18))),
-                      trailing: Text("+ \$220", style: TextStyle(fontSize: 20),),
-                    ),
-                  ],
-                ),
+                  ListTile(
+                    onTap: (){
+                      _settingModalBottomSheet(context);
+                    },
+                    leading: CircleAvatar(backgroundImage: AssetImage("assets/p3.jpg"),),
+                    title: RichText(text: TextSpan(children: [
+                      TextSpan(text: 'Marley Geremy\n'),
+                      TextSpan(text: 'Money Sent - Today 9AM', style: TextStyle(fontSize: 14, color: Colors.grey))
+                    ], style: TextStyle(color: Colors.black, fontSize: 18))),
+                    trailing: Text("- \$430", style: TextStyle(fontSize: 20),),
+                  ),
+
+                  ListTile(
+                    onTap: (){
+                      _settingModalBottomSheet(context);
+                    },
+                    leading: CircleAvatar(backgroundImage: AssetImage("assets/p2.jpg"),),
+                    title: RichText(text: TextSpan(children: [
+                      TextSpan(text: 'Jason Martin\n'),
+                      TextSpan(text: 'Money received - Today 12PM', style: TextStyle(fontSize: 14, color: Colors.grey))
+                    ], style: TextStyle(color: Colors.black, fontSize: 18))),
+                    trailing: Text("+ \$220", style: TextStyle(fontSize: 20),),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
-        bottomNavigationBar: Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
-                  colors: [
-                    Colors.white,
+      ),
+      Card(
+        child: ListTile(
 
-                    Colors.white.withOpacity(0.1),
+          title: Text('Momo'),
+        ),
+      ),
+    ];
+    return Scaffold(
 
-                  ])
+      body: Center(
+        child: _widgetOptions.elementAt(_selectedIndex),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.credit_card),
+            title: Text('Credit Card'),
           ),
-          height: 50,
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text("Dashbord", style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text("Cards", style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600, color: Colors.grey),),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text("History", style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600, color: Colors.grey),),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text("Settings", style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600, color: Colors.grey),),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text("Profile", style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600, color: Colors.grey),),
-              ),
-
-
-            ],
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_balance_wallet),
+            title: Text('Momo'),
           ),
-        )
+
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: const Color.fromRGBO(20, 25, 74, 1),
+        onTap: _onItemTapped,
+      ),
+//
     );
   }
 
