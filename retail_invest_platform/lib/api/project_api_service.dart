@@ -5,12 +5,12 @@ import 'package:retailinvestplatform/models/project_model.dart';
 
 part "project_api_service.chopper.dart";
 
-@ChopperApi(baseUrl: '/project/')
+@ChopperApi(baseUrl: '/projects')
 abstract class ProjectApiService extends ChopperService{
 
   static ProjectApiService create(){
     final client = ChopperClient(
-        baseUrl: 'http://scout-robot.tech/api',
+        baseUrl: 'http://116.88.198.192:3389/api',
         services: [_$ProjectApiService()],
         converter: JsonToTypeConverter({
           ProjectModel: (jsonData) => ProjectModel.fromJson(jsonData)
@@ -18,8 +18,8 @@ abstract class ProjectApiService extends ChopperService{
     );
     return _$ProjectApiService(client);
   }
-  @Get(path: "getAll")
-  Future<Response<List<ProjectModel>>> getResource();
+  @Get()
+  Future<Response> getAllProject();
 }
 
 class JsonToTypeConverter extends JsonConverter {

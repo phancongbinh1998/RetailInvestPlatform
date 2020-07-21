@@ -4,10 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:retailinvestplatform/api/project_api_service.dart';
-import 'package:retailinvestplatform/api/term_types_api_service.dart';
-import 'package:retailinvestplatform/api/user_api_service.dart';
-import 'package:retailinvestplatform/models/login_model.dart';
-import 'package:retailinvestplatform/models/project_model.dart';
+
 import 'package:retailinvestplatform/screens/register.dart';
 import 'package:retailinvestplatform/utils/sign_in.dart';
 
@@ -390,11 +387,11 @@ class _LoginPageState extends State<LoginPage> {
 
 
   changeThePage() async {
-//    final myService = ProjectApiService.create();
-//    final response = await myService.getResource();
-//    var post = response.body;
-//    print(' ${post.toString()}');
-      print('username:' + usernameController.text);
+    final myService = ProjectApiService.create();
+    final response = await myService.getAllProject();
+    var post = response.body;
+    print('name: ${post.name}');
+      //print('username:' + usernameController.text);
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => Home(inputString: usernameController.text)));
 
