@@ -1,25 +1,25 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user_api_service.dart';
+part of 'term_types_api_service.dart';
 
 // **************************************************************************
 // ChopperGenerator
 // **************************************************************************
 
 // ignore_for_file: always_put_control_body_on_new_line, always_specify_types, prefer_const_declarations
-class _$UserApiService extends UserApiService {
-  _$UserApiService([ChopperClient client]) {
+class _$TermTypesApiService extends TermTypesApiService {
+  _$TermTypesApiService([ChopperClient client]) {
     if (client == null) return;
     this.client = client;
   }
 
   @override
-  final definitionType = UserApiService;
+  final definitionType = TermTypesApiService;
 
   @override
-  Future<Response<LoginModel>> getResource(String username) {
-    final $url = '/users/$username';
+  Future<Response<List<TermType>>> getAllTermTypes() {
+    final $url = '/termtypes/';
     final $request = Request('GET', $url, client.baseUrl);
-    return client.send<LoginModel, LoginModel>($request);
+    return client.send<List<TermType>, TermType>($request);
   }
 }

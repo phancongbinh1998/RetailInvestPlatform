@@ -17,9 +17,16 @@ class _$ProjectApiService extends ProjectApiService {
   final definitionType = ProjectApiService;
 
   @override
-  Future<Response<dynamic>> getAllProject() {
-    final $url = '/projects';
+  Future<Response<List<ProjectModel>>> getAllProject() {
+    final $url = '/projects/';
     final $request = Request('GET', $url, client.baseUrl);
-    return client.send<dynamic, dynamic>($request);
+    return client.send<List<ProjectModel>, ProjectModel>($request);
+  }
+
+  @override
+  Future<Response<ProjectModel>> getDetailProject(int project_id) {
+    final $url = '/projects/$project_id';
+    final $request = Request('GET', $url, client.baseUrl);
+    return client.send<ProjectModel, ProjectModel>($request);
   }
 }

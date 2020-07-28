@@ -40,10 +40,10 @@ class _HistoryPage extends State<HistoryPage>{
                       children: <Widget>[
                         GestureDetector(
                           onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Detail(image: image)));
+//                            Navigator.push(
+//                                context,
+//                                MaterialPageRoute(
+//                                    builder: (context) => Detail(image: image)));
                           },
                           child: Container(
                             width: 100.0,

@@ -1,28 +1,27 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:chopper/chopper.dart';
-import 'package:retailinvestplatform/models/project_model.dart';
 
-part "project_api_service.chopper.dart";
 
-@ChopperApi(baseUrl: '/projects/')
-abstract class ProjectApiService extends ChopperService{
+part "user_login_api_service.chopper.dart";
+@ChopperApi(baseUrl: '/auth/')
+abstract class UserLoginApiService extends ChopperService{
 
-  static ProjectApiService create(){
+  static UserLoginApiService create(){
     final client = ChopperClient(
         baseUrl: 'http://18.139.198.138/api',
-        services: [_$ProjectApiService()],
-        converter: JsonToTypeConverter({
-          ProjectModel: (jsonData) => ProjectModel.fromJson(jsonData)
-        })
+        services: [_$UserLoginApiService()],
+
     );
-    return _$ProjectApiService(client);
+    return _$UserLoginApiService(client);
   }
-  @Get()
-  Future<Response<List<ProjectModel>>> getAllProject();
-  @Get(path: "{project_id}")
-  Future<Response<ProjectModel>> getDetailProject(@Path() int project_id);
+
+
+  @Get(path: "{username}")
+  Future<Response> checkLogin(@Path() String username,@Query() String password);
 }
+
+
 
 class JsonToTypeConverter extends JsonConverter {
 

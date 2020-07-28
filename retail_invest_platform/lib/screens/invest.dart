@@ -1,18 +1,69 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:retailinvestplatform/api/invest_api_service.dart';
 import 'package:retailinvestplatform/utils/cards.dart';
 
 class InvestPage extends StatefulWidget {
+  final String investor;
+  final String id;
+  InvestPage({Key key, @required this.investor, @required this.id}) : super(key: key);
+
   @override
-  _InvestPage createState() => _InvestPage();
+  _InvestPage createState() => _InvestPage(investor, id);
 }
 
 
 class _InvestPage extends State<InvestPage>{
+  String investor;
+  String id;
+  _InvestPage(this.investor, this.id);
+
   int _selectedIndex = 0;
   Future<void> _onItemTapped(int index) async {
     setState(() {
       _selectedIndex = index;
+    });
+  }
+
+  Future<String> createAlertDialog(BuildContext context){
+    TextEditingController inputController = new TextEditingController();
+
+    return showDialog(context: context, builder: (context){
+      return AlertDialog(
+        title: Text("Input money to invest"),
+        content: TextField(
+          controller: inputController,
+        ),
+        actions: <Widget>[
+          MaterialButton(
+            elevation: 5.0,
+            child: Text("Invest"),
+            onPressed: (){
+              Navigator.of(context).pop(inputController.text.toString());
+            },
+          ),
+        ],
+      );
+    });
+  }
+
+  createAlert(BuildContext context){
+
+
+    return showDialog(context: context, builder: (context){
+      return AlertDialog(
+        title: Text("Invest Successfully!"),
+
+        actions: <Widget>[
+          MaterialButton(
+            elevation: 5.0,
+            child: Text("Done"),
+            onPressed: (){
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
     });
   }
   @override
@@ -39,7 +90,7 @@ class _InvestPage extends State<InvestPage>{
                         padding: const EdgeInsets.all(8.0),
                         child: RichText(text: TextSpan(
                             children: [
-                              TextSpan(text: "\nTotal Balance\n", style: TextStyle(color: Colors.white.withOpacity(0.5), fontSize: 18)),
+                              TextSpan(text: "\nTotal Invest\n", style: TextStyle(color: Colors.white.withOpacity(0.5), fontSize: 18)),
                               TextSpan(text: "\$ ", style: TextStyle(color: Colors.white.withOpacity(0.5), fontSize: 30)),
                               TextSpan(text: "1,234.00 \n", style: TextStyle(color: Colors.white, fontSize: 36)),
                               TextSpan(text: " \nYour cards", style: TextStyle(color: Colors.white.withOpacity(0.5), fontSize: 18)),
@@ -78,7 +129,20 @@ class _InvestPage extends State<InvestPage>{
                       children: <Widget>[
                         Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: CircleAvatar(child: Icon(Icons.add), radius: 25,),
+                          child: GestureDetector(
+                            onTap: (){
+                              print(id);
+                              print(investor);
+                              createAlertDialog(context).then((value){
+                                final myService = InvestApiService.create();
+                                myService.postInvestTransaction(int.parse(id), investor, double.parse(value));
+                                createAlert(context);
+                              });
+                            },
+                            child: CircleAvatar(
+                              child: Icon(Icons.add), radius: 25,
+                            ),
+                          ),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(2.0),

@@ -1,27 +1,24 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:chopper/chopper.dart';
-import 'package:retailinvestplatform/models/project_model.dart';
 
-part "project_api_service.chopper.dart";
 
-@ChopperApi(baseUrl: '/projects/')
-abstract class ProjectApiService extends ChopperService{
+part "invest_api_service.chopper.dart";
 
-  static ProjectApiService create(){
+@ChopperApi(baseUrl: '/transactions/')
+abstract class InvestApiService extends ChopperService{
+
+  static InvestApiService create(){
     final client = ChopperClient(
-        baseUrl: 'http://18.139.198.138/api',
-        services: [_$ProjectApiService()],
-        converter: JsonToTypeConverter({
-          ProjectModel: (jsonData) => ProjectModel.fromJson(jsonData)
-        })
+      baseUrl: 'http://18.139.198.138/api',
+      services: [_$InvestApiService()],
+
     );
-    return _$ProjectApiService(client);
+    return _$InvestApiService(client);
   }
-  @Get()
-  Future<Response<List<ProjectModel>>> getAllProject();
-  @Get(path: "{project_id}")
-  Future<Response<ProjectModel>> getDetailProject(@Path() int project_id);
+  @Post(path: "invest")
+  Future<Response> postInvestTransaction(@Query() int project_id, @Query() String investor, @Query() double investAmount);
+
 }
 
 class JsonToTypeConverter extends JsonConverter {

@@ -1,27 +1,26 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:chopper/chopper.dart';
-import 'package:retailinvestplatform/models/project_model.dart';
+import 'package:retailinvestplatform/models/term_type.dart';
 
-part "project_api_service.chopper.dart";
+part "term_types_api_service.chopper.dart";
 
-@ChopperApi(baseUrl: '/projects/')
-abstract class ProjectApiService extends ChopperService{
+@ChopperApi(baseUrl: '/termtypes/')
+abstract class TermTypesApiService extends ChopperService{
 
-  static ProjectApiService create(){
+  static TermTypesApiService create(){
     final client = ChopperClient(
         baseUrl: 'http://18.139.198.138/api',
-        services: [_$ProjectApiService()],
+        services: [_$TermTypesApiService()],
         converter: JsonToTypeConverter({
-          ProjectModel: (jsonData) => ProjectModel.fromJson(jsonData)
+          TermType: (jsonData) => TermType.fromJson(jsonData)
         })
     );
-    return _$ProjectApiService(client);
+    return _$TermTypesApiService(client);
   }
   @Get()
-  Future<Response<List<ProjectModel>>> getAllProject();
-  @Get(path: "{project_id}")
-  Future<Response<ProjectModel>> getDetailProject(@Path() int project_id);
+  Future<Response<List<TermType>>> getAllTermTypes();
+
 }
 
 class JsonToTypeConverter extends JsonConverter {

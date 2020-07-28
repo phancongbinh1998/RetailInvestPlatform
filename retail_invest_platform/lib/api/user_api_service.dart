@@ -4,12 +4,12 @@ import 'package:chopper/chopper.dart';
 import 'package:retailinvestplatform/models/login_model.dart';
 
 part "user_api_service.chopper.dart";
-@ChopperApi(baseUrl: '/user/')
+@ChopperApi(baseUrl: '/users/')
 abstract class UserApiService extends ChopperService{
 
   static UserApiService create(){
     final client = ChopperClient(
-      baseUrl: 'http://scout-robot.tech/api',
+      baseUrl: 'http://18.139.198.138/api',
       services: [_$UserApiService()],
       converter: JsonToTypeConverter({
         LoginModel: (jsonData) => LoginModel.fromJson(jsonData)
@@ -17,11 +17,9 @@ abstract class UserApiService extends ChopperService{
     );
     return _$UserApiService(client);
   }
-  @Get(path: "getInfo?apiKey={apiKey}&username={id}")
-  Future<Response<LoginModel>> getResource(@Path() String apiKey, String id);
+  @Get(path: "{username}")
+  Future<Response<LoginModel>> getResource(@Path() String username);
 
-  @Get(path: "login/?username={username}&password={password}")
-  Future<Response<bool>> checkLogin(@Path() String username, String password);
 }
 
 

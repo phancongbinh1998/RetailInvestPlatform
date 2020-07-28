@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:retailinvestplatform/api/project_api_service.dart';
+import 'package:retailinvestplatform/api/term_types_api_service.dart';
+import 'package:retailinvestplatform/api/user_api_service.dart';
+import 'package:retailinvestplatform/api/user_login_api_service.dart';
 
 import 'package:retailinvestplatform/screens/register.dart';
 import 'package:retailinvestplatform/utils/sign_in.dart';
@@ -26,14 +29,15 @@ class _LoginPageState extends State<LoginPage> {
       _isHidePassword = !_isHidePassword;
     });
   }
+
   TextEditingController usernameController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
   final GoogleSignIn googleSignIn = GoogleSignIn();
+
   //final bloc = Bloc();
   @override
   Widget build(BuildContext context) {
-
     // TODO: implement build
     return Scaffold(
       backgroundColor: const Color.fromRGBO(20, 25, 74, 1),
@@ -62,7 +66,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _buildLogo(){
+  Widget _buildLogo() {
     return Expanded(
       flex: 2,
       child: Container(
@@ -73,171 +77,190 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
-  Widget _buildUsernameInput(){
+
+  Widget _buildUsernameInput() {
     return Expanded(
       flex: 0,
       child: Container(
-        width: MediaQuery.of(context).size.width * 0.8,
+        width: MediaQuery
+            .of(context)
+            .size
+            .width * 0.8,
         padding: EdgeInsets.only(bottom: 20.0),
         child: StreamBuilder<String>(
           //stream: bloc.email,
-          builder: (context, snapshot) => TextFormField(
-            //onChanged: bloc.emailChanged,
-            style: TextStyle(
-              color: Colors.white,
-            ),
-            validator: (usernameController) {
-              if (usernameController.isEmpty) {
-                return 'Please input an username';
-              }
-            },
-            controller: usernameController,
-            onSaved: (input) => email = input,
-            decoration: InputDecoration(
-              prefixIcon: Icon(
-                Icons.person_pin,
-                color: Colors.white,
-              ),
-              labelText: 'Username',
-              hintText: 'Enter your username',
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30.0),
-                borderSide: BorderSide(
+          builder: (context, snapshot) =>
+              TextFormField(
+                //onChanged: bloc.emailChanged,
+                style: TextStyle(
                   color: Colors.white,
                 ),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30.0),
-                borderSide: BorderSide(
-                  color: Colors.white,
+                validator: (usernameController) {
+                  if (usernameController.isEmpty) {
+                    return 'Please input an username';
+                  }
+                },
+                controller: usernameController,
+                onSaved: (input) => email = input,
+                decoration: InputDecoration(
+                  prefixIcon: Icon(
+                    Icons.person_pin,
+                    color: Colors.white,
+                  ),
+                  labelText: 'Username',
+                  hintText: 'Enter your username',
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30.0),
+                    borderSide: BorderSide(
+                      color: Colors.white,
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30.0),
+                    borderSide: BorderSide(
+                      color: Colors.white,
+                    ),
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30.0),
+                    borderSide: BorderSide(
+                      color: Colors.white,
+                    ),
+                  ),
+                  labelStyle: TextStyle(
+                      color:
+                      myFocusNode.hasFocus ? Colors.white : Colors.white),
+                  hintStyle: TextStyle(
+                    color: Colors.white,
+                  ),
+                  errorText: snapshot.error,
                 ),
               ),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30.0),
-                borderSide: BorderSide(
-                  color: Colors.white,
-                ),
-              ),
-              labelStyle: TextStyle(
-                  color:
-                  myFocusNode.hasFocus ? Colors.white : Colors.white),
-              hintStyle: TextStyle(
-                color: Colors.white,
-              ),
-              errorText: snapshot.error,
-            ),
-          ),
         ),
       ),
     );
   }
-  Widget _buildPasswordInput(){
+
+  Widget _buildPasswordInput() {
     return Expanded(
       flex: 0,
       child: Container(
-        width: MediaQuery.of(context).size.width * 0.8,
+        width: MediaQuery
+            .of(context)
+            .size
+            .width * 0.8,
         padding: EdgeInsets.only(bottom: 20.0),
         child: StreamBuilder<String>(
           //stream: bloc.password,
-          builder: (context, snapshot) => TextFormField(
-            //onChanged: bloc.passwordChanged,
-            style: TextStyle(
-              color: Colors.white,
-            ),
-            validator: (input) {
-              if (input.isEmpty) {
-                return 'Please provide a password';
-              }
-            },
-            controller: passwordController,
-
-            onSaved: (input) => password = input,
-            focusNode: myFocusNode,
-            obscureText: _isHidePassword,
-            autofocus: false,
-            keyboardType: TextInputType.text,
-            decoration: InputDecoration(
-              prefixIcon: Icon(
-                Icons.lock,
-                color: Colors.white,
-              ),
-              labelText: 'Password',
-              hintText: 'Enter your password',
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30.0),
-                borderSide: BorderSide(
+          builder: (context, snapshot) =>
+              TextFormField(
+                //onChanged: bloc.passwordChanged,
+                style: TextStyle(
                   color: Colors.white,
                 ),
-              ),
-              focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30.0),
-                  borderSide: BorderSide(
-                    color: Colors.white,
-                  )),
-              border: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.white),
-                borderRadius: BorderRadius.circular(30.0),
-              ),
-              labelStyle: TextStyle(
-                  color:
-                  myFocusNode.hasFocus ? Colors.white : Colors.white),
-              hintStyle: TextStyle(
-                color: Colors.white,
-              ),
-              errorText: snapshot.error,
-              suffixIcon: GestureDetector(
-                onTap: () {
-                  _togglePasswordVisibility();
+                validator: (input) {
+                  if (input.isEmpty) {
+                    return 'Please provide a password';
+                  }
                 },
-                child: Icon(
-                  _isHidePassword
-                      ? Icons.visibility_off
-                      : Icons.visibility,
-                  color: _isHidePassword ? Colors.white : Colors.white,
+                controller: passwordController,
+
+                onSaved: (input) => password = input,
+                focusNode: myFocusNode,
+                obscureText: _isHidePassword,
+                autofocus: false,
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                  prefixIcon: Icon(
+                    Icons.lock,
+                    color: Colors.white,
+                  ),
+                  labelText: 'Password',
+                  hintText: 'Enter your password',
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30.0),
+                    borderSide: BorderSide(
+                      color: Colors.white,
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                      borderSide: BorderSide(
+                        color: Colors.white,
+                      )),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
+                  labelStyle: TextStyle(
+                      color:
+                      myFocusNode.hasFocus ? Colors.white : Colors.white),
+                  hintStyle: TextStyle(
+                    color: Colors.white,
+                  ),
+                  errorText: snapshot.error,
+                  suffixIcon: GestureDetector(
+                    onTap: () {
+                      _togglePasswordVisibility();
+                    },
+                    child: Icon(
+                      _isHidePassword
+                          ? Icons.visibility_off
+                          : Icons.visibility,
+                      color: _isHidePassword ? Colors.white : Colors.white,
+                    ),
+                  ),
+                  //isDense: true,
                 ),
               ),
-              //isDense: true,
-            ),
-          ),
         ),
       ),
     );
   }
-  Widget _buildLoginButton(){
+
+  Widget _buildLoginButton() {
     return Expanded(
       flex: 0,
       child: Container(
-        width: MediaQuery.of(context).size.width * 0.8,
+        width: MediaQuery
+            .of(context)
+            .size
+            .width * 0.8,
         padding: EdgeInsets.only(bottom: 10.0),
         height: 60.0,
         child: StreamBuilder<bool>(
           //stream: bloc.submitCheck,
-          builder: (context, snapshot) => RaisedButton(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30.0),
-            ),
-            onPressed: changeThePage,
-            child: Text(
-              'Login',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: const Color.fromRGBO(20, 25, 74, 1),
-                fontSize: 20.0,
-                letterSpacing: 2.0,
-                fontFamily: 'Montserrat',
+          builder: (context, snapshot) =>
+              RaisedButton(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0),
+                ),
+                onPressed: changeThePage,
+                child: Text(
+                  'Login',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: const Color.fromRGBO(20, 25, 74, 1),
+                    fontSize: 20.0,
+                    letterSpacing: 2.0,
+                    fontFamily: 'Montserrat',
+                  ),
+                ),
+                color: Colors.white,
               ),
-            ),
-            color: Colors.white,
-          ),
         ),
       ),
     );
   }
-  Widget _buildTextOR(){
+
+  Widget _buildTextOR() {
     return Expanded(
       flex: 0,
       child: Container(
-        width: MediaQuery.of(context).size.width * 0.9,
+        width: MediaQuery
+            .of(context)
+            .size
+            .width * 0.9,
         padding: EdgeInsets.only(bottom: 10.0, top: 20.0),
         height: 60.0,
         child: Text(
@@ -253,11 +276,15 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
-  Widget _buildText(){
+
+  Widget _buildText() {
     return Expanded(
       flex: 0,
       child: Container(
-        width: MediaQuery.of(context).size.width * 0.9,
+        width: MediaQuery
+            .of(context)
+            .size
+            .width * 0.9,
         padding: EdgeInsets.only(bottom: 10.0, top: 10.0),
         height: 60.0,
         child: Text(
@@ -273,7 +300,8 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
-  Widget _buildFacebookAndGoogleLoginButton(){
+
+  Widget _buildFacebookAndGoogleLoginButton() {
     return Expanded(
       flex: 0,
       child: Row(
@@ -291,18 +319,18 @@ class _LoginPageState extends State<LoginPage> {
                 height: 70.0,
                 width: 70.0,
                 decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black26,
-                      offset: Offset(0,2),
-                      blurRadius: 6.0,
+                    shape: BoxShape.circle,
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black26,
+                        offset: Offset(0, 2),
+                        blurRadius: 6.0,
+                      )
+                    ],
+                    image: DecorationImage(
+                      image: AssetImage('assets/facebook.png'),
                     )
-                  ],
-                  image: DecorationImage(
-                    image: AssetImage('assets/facebook.png'),
-                  )
                 ),
 
               ),
@@ -334,7 +362,7 @@ class _LoginPageState extends State<LoginPage> {
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black26,
-                        offset: Offset(0,2),
+                        offset: Offset(0, 2),
                         blurRadius: 6.0,
                       )
                     ],
@@ -351,7 +379,8 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
-  Widget _buildRegisterButton(){
+
+  Widget _buildRegisterButton() {
     return Expanded(
       flex: 1,
       child: GestureDetector(
@@ -387,16 +416,48 @@ class _LoginPageState extends State<LoginPage> {
 
 
   changeThePage() async {
-    final myService = ProjectApiService.create();
-    final response = await myService.getAllProject();
+
+    final myService = UserLoginApiService.create();
+    final response = await myService.checkLogin(
+        usernameController.text.trim().toString(),
+        passwordController.text.trim().toString());
     var post = response.body;
-    print('name: ${post.name}');
-      //print('username:' + usernameController.text);
+    if (post != null) {
+      print(post);
+      //print('name: ${post.fullName.toString()}');
+
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => Home(inputString: usernameController.text)));
-
-
+          context, MaterialPageRoute(
+          builder: (context) => Home(inputString: usernameController.text)));
+    } else {
+      return showDialog<void>(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Login Faild'),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  Text('Your Username or Password wrong!'),
+                  Text('Please try again!!!'),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('Approve'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
+
   Future<void> signIn() async {
     final formState = formkey.currentState;
 
@@ -404,8 +465,8 @@ class _LoginPageState extends State<LoginPage> {
       formState.save();
       try {
         FirebaseUser user = (await FirebaseAuth.instance
-                .signInWithEmailAndPassword(
-                    email: email.trim(), password: password))
+            .signInWithEmailAndPassword(
+            email: email.trim(), password: password))
             .user;
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => Home()));
