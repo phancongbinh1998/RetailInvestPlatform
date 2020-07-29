@@ -18,7 +18,7 @@ class _$InvestApiService extends InvestApiService {
 
   @override
   Future<Response<dynamic>> postInvestTransaction(
-      dynamic project_id, dynamic investor, dynamic investAmount) {
+      int project_id, String investor, double investAmount) {
     final $url = '/transactions/invest';
     final $params = <String, dynamic>{
       'project_id': project_id,

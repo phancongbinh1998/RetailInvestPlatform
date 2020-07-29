@@ -28,7 +28,7 @@ class _DetailState extends State<Detail> {
 
   List<TermType> listTermType;
   var post;
-
+  double investRatio;
   Future<void> getDetailProject() async {
     print(int.parse(id));
     final myService = ProjectApiService.create();
@@ -38,6 +38,10 @@ class _DetailState extends State<Detail> {
     print('name: ${post.imageUrl}');
     print(investor);
     print(id);
+    print('${post.term.termType.name}');
+    print('${post.term.termType.desp}');
+
+    investRatio = post.curRaisedAmount / post.term.minRaiseGoal;
 
     final myService1 = TermTypesApiService.create();
     final response1 = await myService1.getAllTermTypes();
@@ -147,20 +151,33 @@ class _DetailState extends State<Detail> {
                                 textAlign: TextAlign.center,
                               ),
                             ),
+                            if('${post.status}' == '1')
                             Container(
                               padding: EdgeInsets.only(bottom: 15.0),
                               child: Text(
-                                '423 investors',
+                                'Successful Campaign',
                                 style: TextStyle(
                                   fontFamily: 'Montserrat',
                                 ),
                                 textAlign: TextAlign.center,
                               ),
                             ),
+                            if('${post.status}' == '0')
+                              Container(
+                                padding: EdgeInsets.only(bottom: 15.0),
+                                child: Text(
+                                  'Active Campaign',
+                                  style: TextStyle(
+                                    fontFamily: 'Montserrat',
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
                           ],
                         ),
                       ],
                     ),
+                    if('${post.status}' == '1')
                     Container(
                       width: MediaQuery.of(context).size.width * 0.9,
                       height: MediaQuery.of(context).size.height * 0.03,
@@ -175,7 +192,7 @@ class _DetailState extends State<Detail> {
                         ),
                         alignment: const Alignment(-1.0, 0.0),
                         child: Container(
-                          width: MediaQuery.of(context).size.width * 0.6,
+                          width: MediaQuery.of(context).size.width * 0.9,
                           height: MediaQuery.of(context).size.height * 0.03,
                           decoration: BoxDecoration(
                             color: Colors.blue[900],
@@ -185,6 +202,31 @@ class _DetailState extends State<Detail> {
                         ),
                       ),
                     ),
+                    if('${post.status}' == '0')
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        height: MediaQuery.of(context).size.height * 0.03,
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height * 0.03,
+//              color: Colors.red,
+                          decoration: BoxDecoration(
+                            color: Colors.grey[300],
+                            shape: BoxShape.rectangle,
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          alignment: const Alignment(-1.0, 0.0),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * investRatio,
+                            height: MediaQuery.of(context).size.height * 0.03,
+                            decoration: BoxDecoration(
+                              color: Colors.blue[900],
+                              shape: BoxShape.rectangle,
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                          ),
+                        ),
+                      ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
@@ -214,6 +256,7 @@ class _DetailState extends State<Detail> {
                             ),
                           ),
                         ),
+                        if('${post.status}' == '1')
                         Container(
                           height: 50.0,
                           width: 130.0,
@@ -221,12 +264,7 @@ class _DetailState extends State<Detail> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15.0),
                             ),
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => InvestPage(investor: investor, id: id,)));
-                            },
+                            onPressed: null,
                             child: Text(
                               'Invest',
                               style: TextStyle(
@@ -240,6 +278,33 @@ class _DetailState extends State<Detail> {
                             color: const Color.fromRGBO(20, 25, 74, 1),
                           ),
                         ),
+                        if('${post.status}' == '0')
+                          Container(
+                            height: 50.0,
+                            width: 130.0,
+                            child: RaisedButton(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0),
+                              ),
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => InvestPage(investor: investor, id: id,)));
+                              },
+                              child: Text(
+                                'Invest',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                  fontSize: 13.0,
+                                  letterSpacing: 2.0,
+                                  fontFamily: 'Montserrat',
+                                ),
+                              ),
+                              color: const Color.fromRGBO(20, 25, 74, 1),
+                            ),
+                          ),
                       ],
                     ),
                     Container(
@@ -301,10 +366,9 @@ class _DetailState extends State<Detail> {
                         ),
                       ),
                     ),
-                    for(var term in listTermType)
                     Container(
                       width: MediaQuery.of(context).size.width * 0.9,
-                      padding: EdgeInsets.only(bottom: 10.0),
+                      padding: EdgeInsets.only(bottom: 20.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
@@ -322,7 +386,7 @@ class _DetailState extends State<Detail> {
                           ),
                           Container(
                             child: Text(
-                              '${term.name}',
+                              '${post.term.termType.name}',
                               style: TextStyle(
                                 fontFamily: 'Montserrat',
                                 fontSize: 14.0,
@@ -333,7 +397,6 @@ class _DetailState extends State<Detail> {
                         ],
                       ),
                     ),
-                    for(var term in listTermType)
                     Container(
                       width: MediaQuery.of(context).size.width * 0.9,
                       padding: EdgeInsets.only(bottom: 10.0),
@@ -353,8 +416,10 @@ class _DetailState extends State<Detail> {
                             ),
                           ),
                           Container(
+                            width: MediaQuery.of(context).size.width * 0.5,
                             child: Text(
-                              '${term.desc}',
+                              '${post.term.termType.desp}',
+                              textAlign: TextAlign.left,
                               style: TextStyle(
                                 fontFamily: 'Montserrat',
                                 fontSize: 14.0,

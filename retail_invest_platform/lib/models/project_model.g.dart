@@ -20,6 +20,9 @@ ProjectModel _$ProjectModelFromJson(Map<String, dynamic> json) {
     json['locationAnalysis'] as String,
     json['hightlights'] as String,
     json['imageUrl'] as String,
+    json['term'] == null
+        ? null
+        : InvestmentTerm.fromJson(json['term'] as Map<String, dynamic>),
   );
 }
 
@@ -37,4 +40,5 @@ Map<String, dynamic> _$ProjectModelToJson(ProjectModel instance) =>
       'locationAnalysis': instance.locationAnalysis,
       'hightlights': instance.hightlights,
       'imageUrl': instance.imageUrl,
+      'term': instance.term,
     };

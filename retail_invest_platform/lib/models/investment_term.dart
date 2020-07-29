@@ -1,5 +1,9 @@
 import 'package:retailinvestplatform/models/term_type.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'investment_term.g.dart';
+
+@JsonSerializable()
 class InvestmentTerm{
   int id;
   int termTypeId;
@@ -21,4 +25,10 @@ class InvestmentTerm{
       this.anualInvestRate,
       this.paymentPeriod,
       this.termType);
+
+  factory InvestmentTerm.fromJson(Map<String, dynamic> json) =>
+      _$InvestmentTermFromJson(json);
+
+  Map<String, dynamic> toJson() => _$InvestmentTermToJson(this);
 }
+

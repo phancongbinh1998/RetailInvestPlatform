@@ -6,9 +6,9 @@ part 'term_type.g.dart';
 class TermType{
   int id;
   String name;
-  String desc;
+  String desp;
 
-  TermType(this.id, this.name, this.desc);
+  TermType(this.id, this.name, this.desp);
 
   factory TermType.fromJson(Map<String, dynamic> json) =>
       _$TermTypeFromJson(json);

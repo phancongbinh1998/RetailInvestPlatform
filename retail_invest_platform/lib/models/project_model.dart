@@ -22,7 +22,7 @@ class ProjectModel{
   String hightlights;
   String imageUrl;
 //  UserAccount creatorNavigation;
-//  InvestmentTerm term;
+  InvestmentTerm term;
 //  ProjectBonus projectBonus;
 //  TeamMember teamMember;
 
@@ -39,9 +39,10 @@ class ProjectModel{
       this.businessModel,
       this.locationAnalysis,
       this.hightlights,
-      this.imageUrl,);
+      this.imageUrl,
+      this.term,);
 //      this.creatorNavigation,
-//      this.term,
+
 //      this.projectBonus,
 //      this.teamMember);
 
