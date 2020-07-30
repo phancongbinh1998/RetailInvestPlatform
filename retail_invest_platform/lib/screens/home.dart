@@ -78,7 +78,7 @@ class _HomeState extends State<Home> {
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
                   crossAxisCount: 2,
-                  childAspectRatio: (200 / 350),
+                  childAspectRatio: (200 / 380),
                   children: <Widget>[
                     for(var list in listProject)
                       Container(
