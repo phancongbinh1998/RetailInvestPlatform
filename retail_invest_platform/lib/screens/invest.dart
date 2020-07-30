@@ -34,6 +34,7 @@ class _InvestPage extends State<InvestPage>{
       return AlertDialog(
         title: Text("Input money to invest"),
         content: TextField(
+          keyboardType: TextInputType.number,
           controller: inputController,
         ),
         actions: <Widget>[

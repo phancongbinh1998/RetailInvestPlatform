@@ -31,7 +31,7 @@ class _DetailState extends State<Detail> {
   double investRatio;
   double amount = 0;
   Future<void> getDetailProject() async {
-    print(int.parse(id));
+//    print(int.parse(id));
     final myService = ProjectApiService.create();
     final response = await myService.getDetailProject(int.parse(id));
     post = response.body;
@@ -48,7 +48,6 @@ class _DetailState extends State<Detail> {
     final response1 = await myService1.getInvestorAmount(int.parse(id));
     var post1 = response1.body;
     for(var list in post1){
-      print(list.actor);
       if(list.actor == investor.trim().toString()){
         amount = list.amount;
       }
