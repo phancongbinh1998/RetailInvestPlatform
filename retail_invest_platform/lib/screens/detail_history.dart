@@ -312,17 +312,21 @@ class _HistoryDetailState extends State<HistoryDetail> {
                           ),
                       ],
                     ),
+                    Container(
+                      child: ListTile(
+                        title: Text(
+                          'Bonuses',
+                          style: TextStyle(
+                              fontFamily: 'Montserrat',
+                              fontSize: 25.0,
+                              color: Colors.grey[800]),
+                        ),
+                      ),
+                    ),
                     for(var list in listBonus)
                       Container(
                           child: ListTile(
-                            title: Text(
-                              'Bonuses',
-                              style: TextStyle(
-                                  fontFamily: 'Montserrat',
-                                  fontSize: 25.0,
-                                  color: Colors.grey[800]),
-                            ),
-                            subtitle: Html(
+                            title: Html(
                               data: """
                             Title: ${list.title} - Description: ${list.bonusDesc}
                             """,
@@ -333,14 +337,7 @@ class _HistoryDetailState extends State<HistoryDetail> {
                     if(listBonus.length == 0)
                         Container(
                           child: ListTile(
-                            title: Text(
-                              'Bonuses',
-                              style: TextStyle(
-                                  fontFamily: 'Montserrat',
-                                  fontSize: 25.0,
-                                  color: Colors.grey[800]),
-                            ),
-                            subtitle: Html(
+                            title: Html(
                               data: """
                             You don't have any bonuses in here!
                             """,
@@ -348,8 +345,6 @@ class _HistoryDetailState extends State<HistoryDetail> {
                           ),
                         ),
 
-
-                    for(var list1 in listProfit)
                     Container(
                       child: ListTile(
                         title: Text(
@@ -359,25 +354,78 @@ class _HistoryDetailState extends State<HistoryDetail> {
                               fontSize: 25.0,
                               color: Colors.grey[800]),
                         ),
-                        subtitle: Html(
-                          data: """
-                            Amount: ${list1.amount} - Description: ${list1.description}
-                            """,
+                      ),
+                    ),
+                    for(var list1 in listProfit)
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      padding: EdgeInsets.only(bottom: 20.0),
+                      child: Column(
+                        children: <Widget>[
+                         Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.4,
+                              child: Text(
+                                'Amount',
+                                style: TextStyle(
+                                  fontFamily: 'Montserrat',
+                                  fontSize: 15.0,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+
+                            Container(
+                              child: Text(
+                                '+ \$${list1.amount} ',
+                                style: TextStyle(
+                                  fontFamily: 'Montserrat',
+                                  fontSize: 14.0,
+                                  color: Colors.grey[800],
+                                ),
+                              ),
+                            ),
+
+                          ],
                         ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.4,
+                                child: Text(
+                                  'Date Receive',
+                                  style: TextStyle(
+                                    fontFamily: 'Montserrat',
+                                    fontSize: 15.0,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                child: Text(
+                                  '${list1.date}',
+                                  style: TextStyle(
+                                    fontFamily: 'Montserrat',
+                                    fontSize: 14.0,
+                                    color: Colors.grey[800],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
 
                     if(listProfit.length == 0)
                       Container(
                         child: ListTile(
-                          title: Text(
-                            'Profit Return',
-                            style: TextStyle(
-                                fontFamily: 'Montserrat',
-                                fontSize: 25.0,
-                                color: Colors.grey[800]),
-                          ),
-                          subtitle: Html(
+                          title: Html(
                             data: """
                             You don't have any Profit return!
                             """,
