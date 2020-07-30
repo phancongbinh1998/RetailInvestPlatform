@@ -2,30 +2,32 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:chopper/chopper.dart';
 import 'package:retailinvestplatform/models/profit_return.dart';
+import 'package:retailinvestplatform/models/project_bonus.dart';
 import 'package:retailinvestplatform/models/project_model.dart';
 
-part "project_api_service.chopper.dart";
 
-@ChopperApi(baseUrl: '/projects/')
-abstract class ProjectApiService extends ChopperService{
+part "investor_bonus_api_service.chopper.dart";
 
-  static ProjectApiService create(){
+@ChopperApi(baseUrl: '/investors/')
+abstract class InvestorBonusProjectApiService extends ChopperService{
+
+  static InvestorBonusProjectApiService create(){
     final client = ChopperClient(
         baseUrl: 'http://18.139.198.138/api',
-        services: [_$ProjectApiService()],
+        services: [_$InvestorBonusProjectApiService()],
         converter: JsonToTypeConverter({
-          ProjectModel: (jsonData) => ProjectModel.fromJson(jsonData),
+          ProjectBonus: (jsonData) => ProjectBonus.fromJson(jsonData),
           ProfitReturn: (jsonData) => ProfitReturn.fromJson(jsonData)
         })
     );
-    return _$ProjectApiService(client);
+    return _$InvestorBonusProjectApiService(client);
   }
-  @Get()
-  Future<Response<List<ProjectModel>>> getAllProject();
-  @Get(path: "{project_id}")
-  Future<Response<ProjectModel>> getDetailProject(@Path() int project_id);
-  @Get(path: "{project_id}/investors")
-  Future<Response<List<ProfitReturn>>> getInvestorAmount(@Path() int project_id);
+
+  @Get(path: "{investor_id}/{project_id}/bonuses")
+  Future<Response<List<ProjectBonus>>> getProjectBonus(@Path() String investor_id, @Path() int project_id);
+  @Get(path: "{investor_id}/{project_id}/profit-return")
+  Future<Response<List<ProfitReturn>>> getProfitReturn(@Path() String investor_id, @Path() int project_id);
+
 }
 
 class JsonToTypeConverter extends JsonConverter {

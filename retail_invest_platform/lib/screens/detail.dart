@@ -29,33 +29,33 @@ class _DetailState extends State<Detail> {
   List<TermType> listTermType;
   var post;
   double investRatio;
+  double amount = 0;
   Future<void> getDetailProject() async {
     print(int.parse(id));
     final myService = ProjectApiService.create();
     final response = await myService.getDetailProject(int.parse(id));
     post = response.body;
-    print('name: ${post.name}');
-    print('name: ${post.imageUrl}');
-    print(investor);
-    print(id);
-    print('${post.term.termType.name}');
-    print('${post.term.termType.desp}');
+//    print('name: ${post.name}');
+//    print('name: ${post.imageUrl}');
+//    print(investor);
+//    print(id);
+//    print('${post.term.termType.name}');
+//    print('${post.term.termType.desp}');
 
     investRatio = post.curRaisedAmount / post.term.minRaiseGoal;
 
-    final myService1 = TermTypesApiService.create();
-    final response1 = await myService1.getAllTermTypes();
+    final myService1 = ProjectApiService.create();
+    final response1 = await myService1.getInvestorAmount(int.parse(id));
     var post1 = response1.body;
-    listTermType = post1;
+    for(var list in post1){
+      print(list.actor);
+      if(list.actor == investor.trim().toString()){
+        amount = list.amount;
+      }
+    }
 
-//    for(var term in listTermType){
-//      if(term.id == '${post.termId}'){
-//        print("true");
-//
-//      }
-//    }
 
-//    print("name: " + '${post1[0].name}');
+
   }
 
   @override
@@ -142,6 +142,7 @@ class _DetailState extends State<Detail> {
                         ),
                         Column(
                           children: <Widget>[
+                            if('${post.status}' == '0')
                             Container(
                               child: Text(
                                 '${post.raiseDuration} days left',
@@ -287,10 +288,11 @@ class _DetailState extends State<Detail> {
                                 borderRadius: BorderRadius.circular(15.0),
                               ),
                               onPressed: () {
+                                print(amount);
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => InvestPage(investor: investor, id: id,)));
+                                        builder: (context) => InvestPage(investor: investor, id: id, curAmount: amount,)));
                               },
                               child: Text(
                                 'Invest',
@@ -427,11 +429,210 @@ class _DetailState extends State<Detail> {
                               ),
                             ),
                           ),
+                        ]),
+                        ),
+                          Container(
+                            child: ListTile(
+                              title: Text(
+                                'Maturity',
+                                style: TextStyle(
+                                    fontFamily: 'Montserrat',
+                                    fontSize: 25.0,
+                                    color: Colors.grey[800]),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.9,
+                            padding: EdgeInsets.only(bottom: 20.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                                Container(
+                                  width: MediaQuery.of(context).size.width * 0.4,
+                                  child: Text(
+                                    'Maturity',
+                                    style: TextStyle(
+                                      fontFamily: 'Montserrat',
+                                      fontSize: 15.0,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  child: Text(
+                                    '${post.term.maturity} months',
+                                    style: TextStyle(
+                                      fontFamily: 'Montserrat',
+                                      fontSize: 14.0,
+                                      color: Colors.grey[800],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            child: ListTile(
+                              title: Text(
+                                'RaiseGoal',
+                                style: TextStyle(
+                                    fontFamily: 'Montserrat',
+                                    fontSize: 25.0,
+                                    color: Colors.grey[800]),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.9,
+                            padding: EdgeInsets.only(bottom: 20.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                                Container(
+                                  width: MediaQuery.of(context).size.width * 0.4,
+                                  child: Text(
+                                    'MinRaiseGoal',
+                                    style: TextStyle(
+                                      fontFamily: 'Montserrat',
+                                      fontSize: 15.0,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  child: Text(
+                                    '\$${post.term.minRaiseGoal}',
+                                    style: TextStyle(
+                                      fontFamily: 'Montserrat',
+                                      fontSize: 14.0,
+                                      color: Colors.grey[800],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.9,
+                            padding: EdgeInsets.only(bottom: 20.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                                Container(
+                                  width: MediaQuery.of(context).size.width * 0.4,
+                                  child: Text(
+                                    'MaxRaiseGoal',
+                                    style: TextStyle(
+                                      fontFamily: 'Montserrat',
+                                      fontSize: 15.0,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  child: Text(
+                                    '\$${post.term.maxRaiseGoal}',
+                                    style: TextStyle(
+                                      fontFamily: 'Montserrat',
+                                      fontSize: 14.0,
+                                      color: Colors.grey[800],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                    Container(
+                      child: ListTile(
+                        title: Text(
+                          'Min Invidual Invest',
+                          style: TextStyle(
+                              fontFamily: 'Montserrat',
+                              fontSize: 25.0,
+                              color: Colors.grey[800]),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      padding: EdgeInsets.only(bottom: 20.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.4,
+                            child: Text(
+                              'MinInvidualInvest',
+                              style: TextStyle(
+                                fontFamily: 'Montserrat',
+                                fontSize: 15.0,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          Container(
+                            child: Text(
+                              '\$${post.term.minIndividualInvest}',
+                              style: TextStyle(
+                                fontFamily: 'Montserrat',
+                                fontSize: 14.0,
+                                color: Colors.grey[800],
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
-                  ],
-                ),
+                    Container(
+                      child: ListTile(
+                        title: Text(
+                          'Anual Invest Rate',
+                          style: TextStyle(
+                              fontFamily: 'Montserrat',
+                              fontSize: 25.0,
+                              color: Colors.grey[800]),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      padding: EdgeInsets.only(bottom: 20.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.4,
+                            child: Text(
+                              'AnualInvestRate',
+                              style: TextStyle(
+                                fontFamily: 'Montserrat',
+                                fontSize: 15.0,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          Container(
+                            child: Text(
+                              '${post.term.anualInvestRate}\%',
+                              style: TextStyle(
+                                fontFamily: 'Montserrat',
+                                fontSize: 14.0,
+                                color: Colors.grey[800],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                        ],
+                      ),
+
               );
             }
           }),

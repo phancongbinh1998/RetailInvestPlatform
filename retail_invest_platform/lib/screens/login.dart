@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:retailinvestplatform/api/invested_project_api_service.dart';
+import 'package:retailinvestplatform/api/investor_bonus_api_service.dart';
 import 'package:retailinvestplatform/api/project_api_service.dart';
 import 'package:retailinvestplatform/api/term_types_api_service.dart';
 import 'package:retailinvestplatform/api/user_api_service.dart';
@@ -416,6 +418,19 @@ class _LoginPageState extends State<LoginPage> {
 
 
   changeThePage() async {
+    final myService2 = InvestedProjectApiService.create();
+    final response2 = await myService2.getAllProjectInvested(usernameController.text.trim().toString());
+    var post2 = response2.body;
+    print(post2);
+    final myService1 = InvestedProjectApiService.create();
+    final response1 = await myService1.getAllProjectInvested("investor1");
+    var post1 = response1.body;
+    for(var list in post1){
+      print('${list.name}');
+      print('${list.raiseDuration}');
+
+    }
+
 
     final myService = UserLoginApiService.create();
     final response = await myService.checkLogin(

@@ -29,4 +29,11 @@ class _$ProjectApiService extends ProjectApiService {
     final $request = Request('GET', $url, client.baseUrl);
     return client.send<ProjectModel, ProjectModel>($request);
   }
+
+  @override
+  Future<Response<List<ProfitReturn>>> getInvestorAmount(int project_id) {
+    final $url = '/projects/$project_id/investors';
+    final $request = Request('GET', $url, client.baseUrl);
+    return client.send<List<ProfitReturn>, ProfitReturn>($request);
+  }
 }

@@ -6,17 +6,19 @@ import 'package:retailinvestplatform/utils/cards.dart';
 class InvestPage extends StatefulWidget {
   final String investor;
   final String id;
-  InvestPage({Key key, @required this.investor, @required this.id}) : super(key: key);
+  final double curAmount;
+  InvestPage({Key key, @required this.investor, @required this.id, @required this.curAmount}) : super(key: key);
 
   @override
-  _InvestPage createState() => _InvestPage(investor, id);
+  _InvestPage createState() => _InvestPage(investor, id, curAmount);
 }
 
 
 class _InvestPage extends State<InvestPage>{
   String investor;
   String id;
-  _InvestPage(this.investor, this.id);
+  double curAmount;
+  _InvestPage(this.investor, this.id, this.curAmount);
 
   int _selectedIndex = 0;
   Future<void> _onItemTapped(int index) async {
@@ -92,7 +94,7 @@ class _InvestPage extends State<InvestPage>{
                             children: [
                               TextSpan(text: "\nTotal Invest\n", style: TextStyle(color: Colors.white.withOpacity(0.5), fontSize: 18)),
                               TextSpan(text: "\$ ", style: TextStyle(color: Colors.white.withOpacity(0.5), fontSize: 30)),
-                              TextSpan(text: "1,234.00 \n", style: TextStyle(color: Colors.white, fontSize: 36)),
+                              TextSpan(text:  '$curAmount\n', style: TextStyle(color: Colors.white, fontSize: 36)),
                               TextSpan(text: " \nYour cards", style: TextStyle(color: Colors.white.withOpacity(0.5), fontSize: 18)),
                             ]
                         )),
@@ -131,11 +133,9 @@ class _InvestPage extends State<InvestPage>{
                           padding: const EdgeInsets.all(2.0),
                           child: GestureDetector(
                             onTap: (){
-                              print(id);
-                              print(investor);
-                              createAlertDialog(context).then((value){
+                              createAlertDialog(context).then((value)async{
                                 final myService = InvestApiService.create();
-                                myService.postInvestTransaction(int.parse(id), investor, double.parse(value));
+                                await myService.postInvestTransaction(int.parse(id), investor.trim().toString(), double.parse(value));
                                 createAlert(context);
                               });
                             },
@@ -178,7 +178,7 @@ class _InvestPage extends State<InvestPage>{
                       TextSpan(text: 'Marley Geremy\n'),
                       TextSpan(text: 'Money Sent - Today 9AM', style: TextStyle(fontSize: 14, color: Colors.grey))
                     ], style: TextStyle(color: Colors.black, fontSize: 18))),
-                    trailing: Text("- \$430", style: TextStyle(fontSize: 20),),
+                    trailing: Text("+ \$430", style: TextStyle(fontSize: 20),),
                   ),
 
                   ListTile(

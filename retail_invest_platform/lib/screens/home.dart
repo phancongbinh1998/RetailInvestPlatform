@@ -57,7 +57,7 @@ class _HomeState extends State<Home> {
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
-        title: Text('Main'),
+        title: Text('Trigonic'),
         centerTitle: true,
         backgroundColor: const Color.fromRGBO(20, 25, 74, 1),
       ),
@@ -78,7 +78,7 @@ class _HomeState extends State<Home> {
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
                   crossAxisCount: 2,
-                  childAspectRatio: (200 / 300),
+                  childAspectRatio: (200 / 350),
                   children: <Widget>[
                     for(var list in listProject)
                       Container(
@@ -139,14 +139,14 @@ class _HomeState extends State<Home> {
                                 children: <Widget>[
                                   Container(
                                     width: MediaQuery.of(context).size.width * 0.4,
-                                    height: 56.0,
+                                    height: 80.0,
                                     padding: EdgeInsets.only(top: 15.0),
                                     child: Text(
                                       '${list.name}',
                                       style: TextStyle(
-                                        fontSize: 15.0,
+                                        fontSize: 20.0,
                                         fontFamily: 'Montserrat',
-                                        color: Colors.grey[600],
+                                        color: Colors.grey[800],
                                       ),
                                       textAlign: TextAlign.center,
                                     ),
@@ -323,7 +323,7 @@ class _HomeState extends State<Home> {
                           ),
                           onTap: () {
                             Navigator.push(
-                                context, MaterialPageRoute(builder: (context) => HistoryPage()));
+                                context, MaterialPageRoute(builder: (context) => HistoryPage(investor: inputString,)));
                           },
                         ),
                       ),
